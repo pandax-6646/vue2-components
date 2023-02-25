@@ -20,6 +20,19 @@ function param2Obj(url) {
   return obj
 }
 
+/**
+ * @param {Object} pageParams
+ * @param {Array} list
+ * @returns {Array}
+ */
+function pagingHandel(pageParams, list) {
+  const {page, limit} = pageParams
+  const start = (page - 1) * limit
+  const end = page * limit
+  return list.slice(start, end) || []
+}
+
 module.exports = {
-  param2Obj
+  param2Obj,
+  pagingHandel
 }
