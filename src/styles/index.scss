@@ -63,3 +63,33 @@ div:focus {
 .app-container {
   padding: 20px;
 }
+.mt20 {
+  margin-top: 20px;
+}
+.mt10 {
+  margin-top: 10px;
+}
+.mr10 {
+  margin-right: 10px;
+}
+.mb5{
+  margin-bottom: 5px;
+}
+.mb10{
+  margin-bottom: 10px;
+}
+.mb20{
+  margin-bottom: 20px;
+}
+.mb30{
+  margin-bottom:30px;
+}
+.p10{
+  padding: 10px;
+}
+.text-ellipse-wrap{
+  padding: 0 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

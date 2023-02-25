@@ -1,28 +1,29 @@
 <template>
-  <el-form size="small" label-width="110px">
-    <el-row :gutter="20">
-      <el-col :sm="12" :md="8" :lg="6">
+  <el-form size="small" label-width="100px">
+    <el-row :gutter="24">
+      <el-col :sm="24" :md="12" :lg="8">
         <el-form-item label="标题名称:">
           <el-input v-model="params.title" clearable placeholder="请输入标题名称" />
         </el-form-item>
+      </el-col>
+      <el-col :sm="24" :md="12" :lg="8">
         <el-form-item label="姓名:">
           <el-input v-model="params.operName" placeholder="请输入姓名/登录账号" clearable />
         </el-form-item>
-        <template v-if="isOpen">
-          <el-col :sm="12" :md="12" :lg="6">
-            <el-form-item label="操作时间:">
-              <el-date-picker
-                v-model="useData"
-                type="daterange"
-                clearable
-                value-format="yyyy-MM-dd"
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-              />
-            </el-form-item>
-          </el-col>
-        </template>
+      </el-col>
+      <el-col :sm="24" :md="12" :lg="8">
+        <el-form-item label="操作时间:">
+          <el-date-picker
+            v-model="useData"
+            type="daterange"
+            clearable
+            value-format="yyyy-MM-dd"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            style="width: 100%;"
+          />
+        </el-form-item>
       </el-col>
     </el-row>
   </el-form>
@@ -31,12 +32,6 @@
 <script>
 export default {
   name: 'SearchForm',
-  props:{
-    isOpen: {
-      type: Boolean,
-      default: false
-    }
-  },
   data() {
     return {
       useData: null,
@@ -57,7 +52,7 @@ export default {
   methods: {
     // 暴露参数
     exposeParams() {
-      return JSON.parse(JSON.stringify())
+      return JSON.parse(JSON.stringify(this.params))
     },
     // 重置参数
     resetParams() {

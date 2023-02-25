@@ -20,7 +20,7 @@ module.exports = [
       return {
         code: 200,
         data: items,
-        total: items.length,
+        total: items.length * 30,
         page: 1,
         limit: 10
       }

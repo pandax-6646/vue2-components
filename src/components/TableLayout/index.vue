@@ -1,36 +1,40 @@
 <template>
-  <div class="table-layout" :class="{'m20':isMargin}">
-    <breadcrumb v-if="!hideBreadcrumb" />
+  <div class="table-layout">
+    <el-card v-if="!hideBreadcrumb" class="breadcrumb mb20">
+      <breadcrumb />
+    </el-card>
     <!-- 其他插槽 -->
     <slot name="other-card" />
-    <el-row v-if="showCollapse" class="collapse-form">
-      <el-col class="screen-box" :class="{'open':!isShrink}" :sm="isShrink ? 24 : 18" :xs="24">
-        <!-- 插槽可自定义内容-->
-        <slot name="screen" :is-open="isShrink" />
-      </el-col>
-      <el-col class="operation-region" :sm="isShrink ? 24 : 6" :xs="24">
-        <el-button size="small" @click.stop="resetHandle">重置</el-button>
-        <el-button size="small" type="primary" @click.stop="screenHandle">查询</el-button>
-        <span v-if="isFold" class="shrink" @click="shrink">
-          <span>{{ isShrink ? '收起' : '展开' }}</span>
-          <i v-if="isShrink" class="el-icon-arrow-up" />
-          <i v-else class="el-icon-arrow-down" />
-        </span>
-      </el-col>
-    </el-row>
-    <!-- 搜索框和表格之间的插槽 -->
-    <el-row>
-      <slot name="arbitrarily" />
-    </el-row>
-    <el-row class="table-content mt20">
+
+    <el-card v-if="showCollapse" class="mb20">
+      <el-collapse v-model="collapseKey" class="table-screen">
+        <el-collapse-item name="mian-collapse">
+          <template slot="title">
+            <span class="collapse-title">{{ title }}</span>
+            <div class="table-screen-btn">
+              <slot name="header" v-if="!hideSearch">
+                <!--     插槽可自定义内容，覆盖掉默认内容       -->
+                <el-button size="small" type="primary" @click.stop="screenHandle">查询</el-button>
+                <el-button size="small" @click.stop="resetHandle">重置</el-button>
+              </slot>
+            </div>
+          </template>
+          <el-row class="collapse-form">
+            <slot name="screen" />
+          </el-row>
+        </el-collapse-item>
+      </el-collapse>
+    </el-card>
+    <el-row class="table-content">
       <el-card>
         <el-row>
           <slot name="table" />
         </el-row>
-        <el-row v-if="!hidePagination" class="mt20" style="text-align:right">
+        <el-row v-if="!hidePagination" class="mt20">
           <el-pagination
+            background
             :page-sizes="pageSizes"
-            :page-size.sync="currentSize"
+            :page-size="currentPageSize"
             :pager-count="paginationConfig.pagerCount"
             :layout="paginationConfig.layout"
             :total="paginationTotal"
@@ -47,74 +51,70 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex'
+import { mapState } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 export default {
-  name: 'TableLayout',
   components: { Breadcrumb },
   props: {
+    // 折叠框标题
     title: {
-      // 折叠框标题
       type: String,
       default: '筛选查询'
     },
+
+    // 分页每页显示数选择
     pageSizes: {
-      // 分页每页显示数选择
       type: Array,
       default() {
-        return [10, 20, 30, 40, 50]
+        return [5, 10, 20, 30, 40, 50]
       }
     },
+
+    // 分页每页显示数
     pageSize: {
-      // 分页每页显示数
       type: Number,
       default: 10
     },
+
+    // 分页总数据
     paginationTotal: {
-      // 分页总数据
       type: Number,
       default: 500
     },
+
+    // 是否隐藏搜索重置按钮
+    hideSearch: {
+      type: Boolean,
+      default: false
+    },
+
+    // 是否隐藏分页
     hidePagination: {
-      // 是否隐藏分页
       type: Boolean,
       default: false
     },
+
+    // 是否隐藏面包屑
     hideBreadcrumb: {
-      // 是否隐藏面包屑
       type: Boolean,
       default: false
-    },
-    showCollapse: {
-      // 是否显示折叠框
-      type: Boolean,
-      default: false
-    },
-    isMargin: {
-      // 是否需要外边距
-      type: Boolean,
-      default: true
-    },
-    isFold: {
-      // 是否开启折叠
-      type: Boolean,
-      default: true
     }
   },
   data() {
     return {
-      isShrink: false, // 展开和收起
+      collapseKey: 'mian-collapse',
       currentPage: 1, // 当前第几页
-      currentSize: 10, // 当前显示数
-      collapseKey: 'mian-collapse'
+      currentPageSize: 10, // 当前页容量
+      showCollapse: false // 是否显示折叠框
     }
   },
   computed: {
-    // ...mapState({
-    //   device: (state) => state.app.device
-    // }),
+    ...mapState({
+      device: (state) => state.app.device
+    }),
+
+    // 响应式控制分页器样式
     paginationConfig() {
-      // 响应式控制分页器样式
       if (this.device === 'mobile') {
         return {
           pagerCount: 5,
@@ -129,60 +129,50 @@ export default {
     }
   },
   watch: {
-    pageSize: {
-      handler(val) {
-        this.currentSize = val
-      },
-      immediate: true
+    pageSize(page) {
+      this.currentPageSize = page
     }
   },
+  mounted() {
+    if (this.$slots.screen) {
+      this.showCollapse = true
+    }
+  },
+
   methods: {
-    shrink() {
-      // 展开和收起
-      this.isShrink = !this.isShrink
-    },
+    // 查询
     screenHandle() {
-      // 点击查询回调
-      this.resetPage()
+      this.currentPage = 1
       this.$emit('screenHandle')
     },
+
+    // 重置
     resetHandle() {
-      // 点击重置按钮回调
       this.currentPage = 1
+      this.currentPageSize = 10
       this.$emit('resetHandle')
     },
-    resetPage() {
-      // 重置页码
+
+    // 页容量
+    sizeChange(limit) {
       this.currentPage = 1
-      return 1
+      this.currentPageSize = limit
+      this.$emit('sizeChange', limit)
     },
-    sizeChange(data) {
-      // 每页条数改变时会触发
-      this.antiShake()
-      this.$emit('sizeChange', data)
+
+    // 当前页码
+    currentChange(page) {
+      this.$emit('currentChange', page)
     },
-    currentChange(data) {
-      // currentPage 改变时会触发
-      this.antiShake()
-      this.$emit('currentChange', data)
+
+    // 上一页
+    prevClick(page) {
+      this.$emit('prevClick', page)
     },
-    prevClick(data) {
-      // 用户点击上一页按钮改变当前页后触发
-      this.$emit('prevClick', data)
-    },
-    nextClick(data) {
-      // 用户点击下一页按钮改变当前页后触发
-      this.$emit('nextClick', data)
-    },
-    // ..............................................................................防抖处理
-    antiShake() {
-      if (this.shakeTimer) {
-        clearTimeout(this.shakeTimer)
-        this.shakeTimer = null
-      }
-      this.shakeTimer = setTimeout(() => {
-        this.$emit('change', this.currentPage, this.currentSize)
-      }, 0)
+
+    // 下一页
+    nextClick(page) {
+      this.$emit('nextClick', page)
     }
   }
 }
@@ -190,6 +180,8 @@ export default {
 
 <style lang="scss" scoped>
 .table-layout {
+  margin: 20px;
+
   @media screen and (max-width: 992px) {
     margin: 10px;
   }
@@ -197,13 +189,21 @@ export default {
   @media screen and (max-width: 768px) {
     margin: 2px;
   }
+  /deep/ .el-collapse-item__header {
+    background-color: #eee !important;
+    border-bottom: 1px solid #ebeef5;
+  }
+  .table-screen-btn {
+    position: absolute;
+    right: 100px;
+  }
 
   .el-collapse {
     border-radius: 4px;
     overflow: hidden;
   }
 
-  >>> .el-collapse-item__content {
+  /deep/ .el-collapse-item__content {
     padding-bottom: 0;
   }
 
@@ -212,33 +212,11 @@ export default {
   }
 
   .collapse-form {
-    padding: 20px 0;
-    margin-top: 20px;
-    background-color: #ffffff;
-    border-radius: 4px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    padding: 20px 20px 0 20px;
+  }
 
-    .screen-box {
-      padding-right: 20px;
-    }
-
-    .operation-region {
-      line-height: 40px;
-      text-align: right;
-      padding-right: 20px;
-
-      .shrink {
-        font-size: 14px;
-        color: #0474ef;
-        cursor: pointer;
-        margin-left: 10px;
-      }
-    }
-
-    .open >>> .el-form-item {
-      margin-bottom: 0;
-    }
+  /deep/ .breadcrumb .el-card__body {
+    padding: 10px 20px 5px;
   }
 }
 </style>
