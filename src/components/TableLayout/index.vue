@@ -129,8 +129,11 @@ export default {
     }
   },
   watch: {
-    pageSize(page) {
-      this.currentPageSize = page
+    pageSize: {
+      handler(page) {
+        this.currentPageSize = page
+      },
+      immediate: true
     }
   },
   mounted() {
