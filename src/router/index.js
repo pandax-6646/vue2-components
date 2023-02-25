@@ -93,7 +93,7 @@ export const constantRoutes = [
       {
         path: 'searchtTable',
         name: 'searchtTable',
-        component: () => import('@/views/table/searchtTable/index'),
+        component: () => import('@/views/table/searchTable/index'),
         meta: { title: '查询 table', icon: 'dashboard' }
       },
       // {
