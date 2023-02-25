@@ -38,7 +38,7 @@
 <script>
 import TableDialog from './components/TableDialog'
 export default {
-  name: 'TableSelect',
+  name: 'tableMultipleSelect',
   data() {
     return {
       maxAllowedNumber: 1,

@@ -74,9 +74,15 @@ export const constantRoutes = [
         meta: { title: '下拉分页 select', icon: 'dashboard' }
       },
       {
-        path: 'tableSelect',
-        name: 'tableSelect',
-        component: () => import('@/views/select/tableSelect/index'),
+        path: 'tableSingleSelect',
+        name: 'tableSingleSelect',
+        component: () => import('@/views/select/tableSingleSelect/index'),
+        meta: { title: '弹窗 table 单选', icon: 'dashboard' }
+      },
+      {
+        path: 'tableMultipleSelect',
+        name: 'tableMultipleSelect',
+        component: () => import('@/views/select/tableMultipleSelect/index'),
         meta: { title: '弹窗 table 多选', icon: 'dashboard' }
       }
     ]
