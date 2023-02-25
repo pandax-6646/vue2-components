@@ -1,7 +1,7 @@
 <template>
   <table-layout
     :pagination-total="pageParams.total"
-    :page-size="pageParams.pageSize"
+    :page-size="pageParams.limit"
     :current-page="pageParams.page"
     @screenHandle="searchData"
     @resetHandle="resetData"
