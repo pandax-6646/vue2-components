@@ -155,7 +155,6 @@ module.exports = [
     url: '/vue-admin-template/selectTable/list',
     type: 'get',
     response: config => {
-      console.log(config.query);
       const items = pagingHandel(config.query, selectTableData)
       return {
         code: 200,
