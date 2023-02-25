@@ -7,3 +7,11 @@ export function getList(params) {
     params
   })
 }
+
+export function getSelectTableList(params) {
+  return request({
+    url: '/vue-admin-template/selectTable/list',
+    method: 'get',
+    params
+  })
+}

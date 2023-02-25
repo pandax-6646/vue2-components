@@ -77,7 +77,7 @@ export const constantRoutes = [
         path: 'tableSelect',
         name: 'tableSelect',
         component: () => import('@/views/select/tableSelect/index'),
-        meta: { title: '弹窗 table 选择', icon: 'dashboard' }
+        meta: { title: '弹窗 table 多选', icon: 'dashboard' }
       }
     ]
   },

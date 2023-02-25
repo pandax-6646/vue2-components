@@ -1,13 +1,37 @@
 <template>
   <div class="app-container">
-    <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item label="水果：">
-        <el-tag v-for="item of form.selected" :key="item.id" closable @close="closeHandle(item)">{{ item.date }} - {{
-          item.id }}</el-tag>
-        <el-button plain size="mini" icon="el-icon-plus" circle @click="showDialog" />
-      </el-form-item>
+    <el-form ref="form">
+      <el-col :sm="24" :md="12" :lg="8">
+        <el-form-item label="最多可选：">
+          <el-input-number
+            v-model="maxAllowedNumber"
+            step-strictly
+            :step="1"
+            :min="1"
+            :max="10"
+          />
+        </el-form-item>
+      </el-col>
+      <el-col :sm="24" :md="12" :lg="8">
+        <el-form-item label="添加数据：">
+          <el-button plain size="mini" icon="el-icon-plus" :disabled="selected.length == maxAllowedNumber" circle @click="showDialog" />
+        </el-form-item>
+      </el-col>
+      <el-col :span="24">
+        <el-form-item label="选中的数据：">
+          <el-table border row-key="id" ref="multipleTable" :data="selected">
+            <el-table-column prop="date" label="日期">
+              <template slot-scope="{row}">
+                <div>{{ row.date }} = {{ row.id }}</div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="name" label="姓名" />
+            <el-table-column prop="address" label="地址" show-overflow-tooltip />
+          </el-table>
+        </el-form-item>
+      </el-col>
     </el-form>
-    <table-dialog ref="tableDialog" @select="select" :exportSelected="form.selected" />
+    <table-dialog ref="tableDialog" @select="select" :maxAllowedNumber="maxAllowedNumber" />
   </div>
 </template>
 
@@ -17,42 +41,20 @@ export default {
   name: 'TableSelect',
   data() {
     return {
-      form: {
-        // 选中回显数据
-        selected: [
-          {
-            id: 1,
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          },
-          {
-            id: 2,
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }
-        ]
-      }
+      maxAllowedNumber: 1,
+      // 选中回显数据
+      selected: []
     }
   },
   components: {
     TableDialog
   },
   methods: {
-    onSubmit() {
-      console.log('submit!')
-    },
     showDialog() {
-      this.$refs.tableDialog.show()
+      this.$refs.tableDialog.show(JSON.parse(JSON.stringify(this.selected)))
     },
     select(list) {
-      this.$set(this.form, 'selected', list)
-      console.log('拿到的数据', list)
-    },
-    closeHandle(row) {
-      const list = this.form.selected.filter((it) => it.id != row.id)
-      this.$set(this.form, 'selected', list)
+      this.selected = list
     }
   }
 }

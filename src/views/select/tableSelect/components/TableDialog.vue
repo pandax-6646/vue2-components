@@ -1,18 +1,51 @@
 <template>
-  <el-dialog title="选择" :visible.sync="dialogVisible" width="50%">
-    <el-table :data="tableData" style="width: 100%" ref="multipleTable" row-key="id" @select="handleOneSelect">
-      <el-table-column type="selection" width="55" />
-      <el-table-column prop="date" label="日期" width="180">
-        <template slot-scope="{row}">
-          <div>{{ row.date }} = {{ row.id }}</div>
-        </template>
-      </el-table-column>
-      <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-      <el-table-column prop="address" label="地址"></el-table-column>
-    </el-table>
-    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="params.page"
-      :page-sizes="[5, 10, 20, 50]" :page-size="params.limit" layout="total, sizes, prev, pager, next, jumper"
-      :total="params.total" />
+  <el-dialog title="选择" top="6vh" :visible.sync="dialogVisible" width="50%">
+    <table-layout
+      hideBreadcrumb
+      :pagination-total="pageParams.total"
+      :page-size="pageParams.limit"
+      :current-page="pageParams.page"
+      @screenHandle="getData"
+      @resetHandle="resetData"
+      @sizeChange="handleSizeChange"
+      @currentChange="handleCurrentChange"
+    >
+      <template v-slot:screen>
+        <el-form size="small" label-width="50px">
+          <el-row :gutter="24">
+            <el-col :sm="24" :md="12" :lg="12">
+              <el-form-item label="姓名:">
+                <el-input v-model="searchParams.name" placeholder="请输入姓名" clearable />
+              </el-form-item>
+            </el-col>
+            <el-col :sm="24" :md="12" :lg="12">
+              <el-form-item label="地址:">
+                <el-input v-model="searchParams.address" clearable placeholder="请输入地址" />
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+      </template>
+      <template v-slot:table>
+        <el-table
+          border
+          row-key="id"
+          ref="multipleTable"
+          :data="tableData"
+          @select="handleOneSelect"
+        >
+          <el-table-column type="selection" width="50" />
+          <el-table-column prop="date" label="日期">
+            <template slot-scope="{row}">
+              <div>{{ row.date }} = {{ row.id }}</div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="name" label="姓名" />
+          <el-table-column prop="address" label="地址" show-overflow-tooltip />
+        </el-table>
+      </template>
+    </table-layout>
+
     <span slot="footer" class="dialog-footer">
       <el-button @click="closeHandle">取 消</el-button>
       <el-button type="primary" @click="submitHandle">确 定</el-button>
@@ -21,158 +54,53 @@
 </template>
 
 <script>
+import { getSelectTableList } from '@/api/table'
+
+import TableLayout from '@/components/TableLayout'
+import SearchForm from '@/views/table/searchTable/components/SearchForm'
+
 export default {
   name: 'TableDialog',
+  components: {
+    TableLayout,
+    SearchForm
+  },
   props: {
     exportSelected: {
       type: Array,
       default: () => []
+    },
+    maxAllowedNumber: {
+      type: Number
     }
   },
   data() {
     return {
       dialogVisible: false,
+
+      // table表格
+      tableDataLoading: false,
       tableData: [],
-      params: {
+      searchParams: {},
+      pageParams: {
         page: 1,
         limit: 5,
         total: 0
       },
-      data: [
-        {
-          id: 1,
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          id: 2,
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        },
-        {
-          id: 3,
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        },
-        {
-          id: 4,
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          id: 5,
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          id: 6,
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        },
-        {
-          id: 7,
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        },
-        {
-          id: 8,
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          id: 9,
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          id: 10,
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        },
-        {
-          id: 11,
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        },
-        {
-          id: 12,
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          id: 13,
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          id: 14,
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        },
-        {
-          id: 15,
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        },
-        {
-          id: 16,
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          id: 17,
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          id: 18,
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        },
-        {
-          id: 19,
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        },
-        {
-          id: 20,
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }
-      ],
-      selected: [],
-      maxAllowedNumber: 4
+
+      // 选中的数据
+      selected: []
     }
   },
   watch: {
     tableData: {
       handler(newV) {
         this.$nextTick(() => {
+          const selectedIds = this.selected.map((item) => item.id)
           newV.forEach((item) => {
-            this.$refs.multipleTable.toggleRowSelection(
-              this.selected.find((it) => it.id === item.id),
-              true
-            )
+            if (selectedIds.includes(item.id)) {
+              this.$refs.multipleTable.toggleRowSelection(item, true)
+            }
           })
         })
       },
@@ -180,51 +108,86 @@ export default {
     }
   },
   methods: {
-    show() {
+    show(data) {
       this.dialogVisible = true
-      this.params.page = 1
+      this.pageParams.page = 1
+      this.searchParams = {}
       this.getData()
-      this.selected = this.exportSelected
+      console.log(this.maxAllowedNumber);
+      this.selected = this.maxAllowedNumber > data.length ? data : []
     },
 
     // 获取列表
     getData() {
-      setTimeout(() => {
-        this.tableData = this.pagingHandel(
-          this.params.page,
-          this.params.limit,
-          this.data
-        )
-        this.params.total = this.data.length
-      }, 500)
+      this.tableDataLoading = true
+      const { page, limit } = this.pageParams
+      const params = {
+        page,
+        limit,
+        parameter: this.searchParams
+      }
+      getSelectTableList(params)
+        .then((res) => {
+          if (Number(res.code) == 200) {
+            this.tableDataLoading = false
+            this.tableData = res.data || []
+            this.pageParams = {
+              page: res.page,
+              limit: res.limit,
+              total: res.total
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+          this.tableDataLoading = false
+        })
     },
 
     // 分页
     handleSizeChange(val) {
-      this.params.limit = val
-      this.params.page = 1
+      this.pageParams.limit = val
       this.getData()
     },
 
     // 当前页码
     handleCurrentChange(val) {
-      this.params.page = val
-      this.selected = this.getData()
+      this.pageParams.page = val
+      this.getData()
     },
-
+    
+    // 重置
+    resetData() {
+      this.searchParams = {}
+      this.pageParams = {
+        page: 1,
+        limit: 5
+      }
+      this.getData()
+    },
     // 单选数据
     handleOneSelect(rows, row) {
-      // selection = selection.filter((item) => item)
-      // console.log('单选一个', selection, row)
-      // if (selection.length > this.maxAllowedNumber) {
-      //   this.$message({
-      //     message: '超出最大数量限制,不可再次选择333333',
-      //     type: 'error'
-      //   })
-      //   this.$refs.multipleTable.toggleRowSelection(row, false)
-      // }
+      if (this.selected.length == this.maxAllowedNumber) {
+        if (this.selected.find((item) => item.id === row.id)) {
+          this.selected = this.selected.filter((item) => item.id !== row.id)
+        } else {
+          this.$message.error(`最多选择 ${this.maxAllowedNumber} 个`)
+          this.$refs.multipleTable.toggleRowSelection(row, false)
+        }
+      } else if (this.selected.length < this.maxAllowedNumber && row) {
+        if (this.selected.find((item) => item.id === row.id)) {
+          this.selected = this.selected.filter((item) => item.id !== row.id)
+        } else {
+          this.selected.push(row)
+        }
+      } else if (
+        this.selected.length > this.maxAllowedNumber ||
+        rows.length > this.maxAllowedNumber
+      ) {
+        this.$message.error(`最多选择 ${this.maxAllowedNumber} 个`)
+        this.$refs.multipleTable.toggleRowSelection(row, false)
+      }
     },
-
 
     // 提交数据
     submitHandle() {
@@ -235,16 +198,17 @@ export default {
     // 关闭弹窗
     closeHandle() {
       this.dialogVisible = false
-    },
-
-    // 分页函数
-    pagingHandel(page, limit, list) {
-      const start = (page - 1) * limit
-      const end = page * limit
-      return list.slice(start, end) || []
+      this.selected = []
     }
   }
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+/deep/.el-table__header-wrapper .el-checkbox {
+  display: none;
+}
+/deep/.el-dialog__body {
+  padding: 0 20px;
+}
+</style>
