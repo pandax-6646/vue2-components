@@ -51,7 +51,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'dashboard' }
     }]
   },
 
@@ -73,17 +73,18 @@ export const constantRoutes = [
         component: () => import('@/views/select/pagingSelect/index'),
         meta: { title: '下拉分页 select', icon: 'dashboard' }
       },
-      {
-        path: 'tableSingleSelect',
-        name: 'tableSingleSelect',
-        component: () => import('@/views/select/tableSingleSelect/index'),
-        meta: { title: '弹窗 table 单选', icon: 'dashboard' }
-      },
+
       {
         path: 'tableMultipleSelect',
         name: 'tableMultipleSelect',
         component: () => import('@/views/select/tableMultipleSelect/index'),
         meta: { title: '弹窗 table 多选', icon: 'dashboard' }
+      },
+      {
+        path: 'tableSingleSelect',
+        name: 'tableSingleSelect',
+        component: () => import('@/views/select/tableSingleSelect/index'),
+        meta: { title: '弹窗 table 单选', icon: 'dashboard' }
       }
     ]
   },
@@ -93,51 +94,51 @@ export const constantRoutes = [
   {
     path: '/table',
     component: Layout,
-    redirect: '/table/searchtTable',
+    redirect: '/table/searchTable',
     meta: { title: '表格', icon: 'nested' },
     children: [
       {
-        path: 'searchtTable',
-        name: 'searchtTable',
+        path: 'searchTable',
+        name: 'searchTable',
         component: () => import('@/views/table/searchTable/index'),
         meta: { title: '查询 table', icon: 'dashboard' }
       },
-      // {
-      //   path: 'pagingSelect',
-      //   name: 'pagingSelect',
-      //   component: () => import('@/views/select/pagingSelect/index'),
-      //   meta: { title: '下拉分页 select', icon: 'dashboard' }
-      // },
-      // {
-      //   path: 'tableSelect',
-      //   name: 'tableSelect',
-      //   component: () => import('@/views/select/tableSelect/index'),
-      //   meta: { title: '弹窗 table 选择', icon: 'dashboard' }
-      // }
+      {
+        path: 'treeTable',
+        name: 'treeTable',
+        component: () => import('@/views/table/treeTable/index'),
+        meta: { title: '树形 table 填写', icon: 'dashboard' }
+      },
+      {
+        path: 'profiledTable',
+        name: 'profiledTable',
+        component: () => import('@/views/table/profiledTable/index'),
+        meta: { title: '异形 table 填写', icon: 'dashboard' }
+      }
     ]
   },
 
-  // {
-  //   path: '/example',
-  //   component: Layout,
-  //   redirect: '/example/table',
-  //   name: 'Example',
-  //   meta: { title: 'Example', icon: 'el-icon-s-help' },
-  //   children: [
-  //     {
-  //       path: 'table',
-  //       name: 'Table',
-  //       component: () => import('@/views/table/index'),
-  //       meta: { title: 'Table', icon: 'table' }
-  //     },
-  //     {
-  //       path: 'tree',
-  //       name: 'Tree',
-  //       component: () => import('@/views/tree/index'),
-  //       meta: { title: 'Tree', icon: 'tree' }
-  //     }
-  //   ]
-  // },
+/*   {
+    path: '/example',
+    component: Layout,
+    redirect: '/example/table',
+    name: 'Example',
+    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'table',
+        name: 'Table',
+        component: () => import('@/views/table/index'),
+        meta: { title: 'Table', icon: 'table' }
+      },
+      {
+        path: 'tree',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: 'Tree', icon: 'tree' }
+      }
+    ]
+  },
 
   {
     path: '/form',
@@ -220,7 +221,7 @@ export const constantRoutes = [
         meta: { title: 'External Link', icon: 'link' }
       }
     ]
-  },
+  }, */
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
