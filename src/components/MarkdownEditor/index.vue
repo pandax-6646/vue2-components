@@ -16,13 +16,7 @@ export default {
     id: {
       type: String,
       required: false,
-      default() {
-        return (
-          'markdown-editor-' +
-          +new Date() +
-          ((Math.random() * 1000).toFixed(0) + '')
-        )
-      }
+      default: `wang-editor-${new Date()}${(Math.random() * 1000).toFixed(0)}}`
     },
     options: {
       type: Object,
@@ -73,6 +67,7 @@ export default {
         }
       })
     },
+    
     editorLoad(editor) {
       this.$emit('editorLoad', editor)
     },
