@@ -57,32 +57,33 @@ export const constantRoutes = [
 
   {
     path: '/select',
+    name: 'Select',
     component: Layout,
     redirect: '/select/dragSelect',
     meta: { title: '选择器', icon: 'nested' },
     children: [
       {
         path: 'dragSelect',
-        name: 'dragSelect',
+        name: 'DragSelect',
         component: () => import('@/views/select/dragSelect/index'),
         meta: { title: '拖拽 select', icon: 'dashboard' }
       },
       {
         path: 'pagingSelect',
-        name: 'pagingSelect',
+        name: 'PagingSelect',
         component: () => import('@/views/select/pagingSelect/index'),
         meta: { title: '下拉分页 select', icon: 'dashboard' }
       },
 
       {
         path: 'tableMultipleSelect',
-        name: 'tableMultipleSelect',
+        name: 'TableMultipleSelect',
         component: () => import('@/views/select/tableMultipleSelect/index'),
         meta: { title: '弹窗 table 多选', icon: 'dashboard' }
       },
       {
         path: 'tableSingleSelect',
-        name: 'tableSingleSelect',
+        name: 'TableSingleSelect',
         component: () => import('@/views/select/tableSingleSelect/index'),
         meta: { title: '弹窗 table 单选', icon: 'dashboard' }
       }
@@ -91,25 +92,26 @@ export const constantRoutes = [
 
   {
     path: '/table',
+    name: 'Table',
     component: Layout,
     redirect: '/table/searchTable',
     meta: { title: '表格', icon: 'nested' },
     children: [
       {
         path: 'searchTable',
-        name: 'searchTable',
+        name: 'SearchTable',
         component: () => import('@/views/table/searchTable/index'),
         meta: { title: '查询 table', icon: 'dashboard' }
       },
       {
         path: 'treeTable',
-        name: 'treeTable',
+        name: 'sreeTable',
         component: () => import('@/views/table/treeTable/index'),
         meta: { title: '树形 table 填写', icon: 'dashboard' }
       },
       {
         path: 'profiledTable',
-        name: 'profiledTable',
+        name: 'ProfiledTable',
         component: () => import('@/views/table/profiledTable/index'),
         meta: { title: '异形 table 填写', icon: 'dashboard' }
       }
@@ -118,27 +120,26 @@ export const constantRoutes = [
 
   {
     path: '/editor',
+    name: 'Editor',
     component: Layout,
-    redirect: '/editor/richTextEditor/wangeEditor',
     meta: { title: '编辑器', icon: 'nested' },
     children: [
       {
         path: 'richTextEditor',
         name: 'richTextEditor',
-        redirect: '/editor/richTextEditor/wangeEditor',
-        component: () => import('@/views/editor/wangeEditor/index'),
-        meta: { title: '富文本编辑器', icon: 'dashboard' },
+        component: () => import('@/views/editor/richTextEditor'),
+        meta: { title: '富文本编辑器', icon: '' },
         children: [
           {
             path: 'wangeEditor',
-            name: 'wangeEditor',
-            component: () => import('@/views/editor/wangeEditor/index'),
+            name: 'WangeEditor',
+            component: () => import('@/views/editor/richTextEditor/wangeEditor/index'),
             meta: { title: 'wangeEditor', icon: 'dashboard' }
           },
           {
             path: 'tinymce',
-            name: 'tinymce',
-            component: () => import('@/views/editor/tinymce/index'),
+            name: 'Tinymce',
+            component: () => import('@/views/editor/richTextEditor/tinymce/index'),
             meta: { title: 'tinymce', icon: 'dashboard' }
           },
         ]
@@ -152,7 +153,7 @@ export const constantRoutes = [
       },
       {
         path: 'markdownEditor',
-        name: 'markdownEditor',
+        name: 'MarkdownEditor',
         component: () => import('@/views/editor/markdownEditor/index'),
         meta: { title: 'markdown 编辑器', icon: 'dashboard' }
       }
