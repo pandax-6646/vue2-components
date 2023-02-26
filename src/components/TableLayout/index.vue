@@ -52,6 +52,8 @@
 
 <script>
 import { mapState } from 'vuex'
+import { scrollTo } from '@/utils/scroll-to'
+
 import Breadcrumb from '@/components/Breadcrumb'
 export default {
   components: { Breadcrumb },
@@ -62,7 +64,7 @@ export default {
       default: '筛选查询'
     },
 
-    // 分页每页显示数选择
+    // 页容量选择
     pageSizes: {
       type: Array,
       default() {
@@ -70,7 +72,7 @@ export default {
       }
     },
 
-    // 分页每页显示数
+    // 页容量
     pageSize: {
       type: Number,
       default: 10
@@ -98,6 +100,18 @@ export default {
     hideBreadcrumb: {
       type: Boolean,
       default: false
+    },
+
+    // 点击底部分页组件查询是否滚动到顶部
+    autoScroll: {
+      type: Boolean,
+      default: true
+    },
+
+    // 滚动时间
+    scrollTime: {
+      type: Number,
+      default: 800
     }
   },
   data() {
@@ -166,16 +180,26 @@ export default {
     // 当前页码
     currentChange(page) {
       this.$emit('currentChange', page)
+      this.handleAutoScroll()
     },
 
     // 上一页
     prevClick(page) {
       this.$emit('prevClick', page)
+      this.handleAutoScroll()
     },
 
     // 下一页
     nextClick(page) {
       this.$emit('nextClick', page)
+      this.handleAutoScroll()
+    },
+
+    // 自动滚动
+    handleAutoScroll() {
+      if (this.autoScroll) {
+        scrollTo(0, this.scrollTime)
+      }
     }
   }
 }
