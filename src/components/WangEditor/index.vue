@@ -1,135 +1,186 @@
 <template>
-  <div style="border: 1px solid #ccc;">
-    <Toolbar
-      style="border-bottom: 1px solid #ccc"
-      :editor="editor"
-      :defaultConfig="toolbarConfig"
-      :mode="mode"
-    />
-    <Editor
-      :style="{ height: `${height}px`, 'overflow-y': 'hidden' }"
-      v-model="html"
-      :defaultConfig="{ ...baseEditorConfig, placeholder, readOnly, maxLength }"
-      :mode="mode"
-      @onCreated="onCreated"
-      @onChange="onChange"
-      @onMaxLength="onMaxLength"
-    />
+  <div class="editor-container">
+    <div class="editor-box" ref="editor" />
+    <div class="desc" >{{currLength}} / {{maxLength}}</div>
   </div>
 </template>
 
 <script>
-import { Toolbar, Editor } from '@wangeditor/editor-for-vue'
-import { Message as $message } from 'element-ui'
-import '@wangeditor/editor/dist/css/style.css'
+import Editor from 'wangeditor'
 
 export default {
-  name: 'WangEditor',
-  components: { Toolbar, Editor },
+  name: 'Editor',
   props: {
-    height: {
+    // 需要隐藏的菜单
+    hideMenus: {
+      type: Array,
+      default: () => []
+    },
+
+    // 最大输入文本数
+    maxLength: {
       type: Number,
-      default: 300
+      default: 200
+    },
+
+    height: {
+      type: Number
     },
 
     placeholder: {
+      type: String
+    },
+
+    // 触发 onchange 的时间频率
+    onchangeTimeout: {
+      type: String
+    },
+
+    // 图片服务器地址
+    imgServer: {
       type: String,
-      default: '请输入内容...'
+      default: 'http://127.0.0.1:3000/api/upload-img'
     },
 
-    readOnly: {
-      type: Boolean,
-      default: false
+    // 上传图片大小限制
+    maxSize: {
+      type: Number
     },
 
-    //  工具栏配置
-    toolbarConfig: {
-      type: Object,
-      default() {
-        return {}
-      }
+    // 显示 base 64 图片
+    showBase64: {
+      type: Boolean
     },
 
-     // 文本最大长度
-    maxLength: {
-      type: Number,
-      default: 500
+    // 单次最多上传图片数量
+    imgMaxLength: {
+      type: Number
     },
 
-    mode: {
-      type: String,
-      default: 'simple' // 'simple' or 'default'
+    // 图片上传超时时间（毫秒）
+    imgTimeout: {
+      type: Number
     }
   },
+
   data() {
     return {
       editor: null,
-      baseEditorConfig: {
-        MENU_CONF: {
-          uploadImage: {
-            server: 'http://127.0.0.1:3000/api/upload-img', // 上传图片地址
-
-            // 最多可上传文件数，默认为 100，不起作用
-            maxNumberOfFiles: 2,
-
-            // 单个文件的最大体积限制，默认为 2M
-            maxFileSize: 1024 * 1024 * 1, // 1M
-
-            // 选择文件时的类型限制，默认为 ['image/*'] 。如不想限制，则设置为 []
-            allowedFileTypes: ['image/*'],
-
-            base64LimitSize: 5 * 1024, // 5kb 以下插入 base64
-
-            // 服务端响应的不是规定格式，使用自定义方式插入图片
-            customInsert({ data }, insertFn) {
-              const { alt, href, url } = data[0]
-              insertFn(url, alt, href)
-            },
-
-            // 上传失败
-            onError(fileInfo, err, res) {
-              $message.error(err.toString().split(':')[1] || res.msg)
-            }
-          },
-          uploadVideo: {
-            server: 'http://127.0.0.1:3000/api/upload-video', // 上传视频地址
-
-            // 单个文件的最大体积限制，默认为 10M
-            maxFileSize: 50 * 1024 * 1024, // 5M
-
-            // 最多可上传几个文件，默认为 5，不起作用
-            maxNumberOfFiles: 1,
-
-            customInsert: ({ data }, insertVideoFn) => {
-              console.log(data)
-              insertVideoFn(data.url)
-            },
-            // 上传失败
-            onError(fileInfo, err, res) {
-              $message.error(err.toString().split(':')[1] || res.msg)
-            }
-          }
-        }
-      },
-      html: ''
+      maxLengthHtml: '',
+      currLength: 0
     }
   },
 
-  beforeDestroy() {
-    if (this.editor == null) return
-    this.editor.destroy() // 组件销毁时，及时销毁编辑器
+  mounted() {
+    this.initEditor()
   },
 
   methods: {
-    onCreated(editor) {
-      this.editor = Object.seal(editor) // 一定要用 Object.seal() ，否则会报错
+    initEditor() {
+      this.editor = new Editor(this.$refs.editor)
+
+      this.editor.config.excludeMenus = this.hideMenus
+      this.editor.config.zIndex = 5
+
+      this.editor.config.uploadImgServer =
+        'http://127.0.0.1:3000/api/upload-img'
+
+      if (this.height) {
+        this.editor.config.height = this.height
+      }
+
+      if (this.placeholder) {
+        this.editor.config.placeholder = this.placeholder
+      }
+
+      if (this.showBase64) {
+        this.editor.config.uploadImgShowBase64 = this.showBase64
+      }
+
+      if (this.maxSize) {
+        this.editor.config.uploadImgMaxSize = this.maxSize
+      }
+
+      if (this.imgMaxLength) {
+        this.editor.config.uploadImgMaxLength = this.imgMaxLength
+      }
+
+      if (this.imgTimeout) {
+        this.editor.config.uploadImgTimeout = this.imgTimeout
+      }
+
+      if (this.onchangeTimeout) {
+        this.editor.config.onchangeTimeout = this.onchangeTimeout
+      }
+
+      this.editor.config.onchange = (newHtml) => {
+        this.changeHtml(newHtml)
+      }
+
+      this.editor.create()
     },
-    onChange() {
-      this.$emit('change', this.html)
+
+    changeHtml(newHtml) {
+      // 最大文本输入校验处理
+      const textLength = this.getText().length
+      this.currLength = textLength
+      if (textLength < this.maxLength) {
+        this.$emit('changeHtml', newHtml)
+      } else if (textLength == this.maxLength) {
+        this.maxLengthHtml = this.getHtml()
+      } else {
+        this.setHtml(this.maxLengthHtml)
+        this.$message.error(`最多输入${this.maxLength}字符`)
+      }
+
+      // 删除上传的所有图片后，不显示 placeholder
+      if (this.getHtml() == '<p></p>') {
+        this.clearEditor()
+      }
     },
-    onMaxLength() {
-      this.$message.error('输入超过最大字数限制')
+
+    setHtml(html) {
+      this.editor.txt.html(html)
+    },
+
+    getHtml() {
+      return this.editor.txt.html()
+    },
+
+    getText() {
+      return this.editor.txt.text()
+    },
+
+    clearEditor() {
+      this.editor.txt.clear()
+    },
+
+    // 禁用
+    disable() {
+      this.editor.disable()
+    },
+
+    // 解除禁用
+    enable() {
+      this.editor.enable()
+    },
+
+    destroy() {
+      this.editor.destroy()
+      this.editor = null
     }
   }
 }
 </script>
+<style lang="scss" scoped>
+.editor-container {
+  position: relative;
+}
+.desc {
+  position: absolute;
+  right: 30px;
+  bottom: 20px;
+  color: #5e5e5e;
+  z-index: 6;
+}
+</style>

@@ -1,6 +1,9 @@
 <template>
   <div class="wangeditor-container">
-    <wang-editor @change="editorChange" :readOnly="readOnly" ref="editor" />
+    <wang-editor
+      @changeHtml="editorChange"
+      ref="wangeditor"
+    />
     <div>
       <h4>富文本内容：</h4>
       <div style="margin-left: 20px;">{{ content }}</div>
@@ -9,7 +12,7 @@
 </template>
 
 <script>
-import WangEditor from '@/components/WangEditor'
+import WangEditor from '@/components/WangEditor/index'
 export default {
   name: 'WangEditorDemo',
   components: {
@@ -17,10 +20,10 @@ export default {
   },
   data() {
     return {
-      content: '',
-      readOnly: false
+      content: ''
     }
   },
+
   methods: {
     editorChange(content) {
       this.content = content
