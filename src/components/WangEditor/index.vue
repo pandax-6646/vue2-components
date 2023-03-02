@@ -9,7 +9,7 @@
 import Editor from 'wangeditor'
 
 export default {
-  name: 'Editor',
+  name: 'WangEditor',
   props: {
     // 需要隐藏的菜单
     hideMenus: {

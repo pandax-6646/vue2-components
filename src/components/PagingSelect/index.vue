@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'index',
+  name: 'PagingSelect',
   props: {
     placeholder: {
       type: String,
@@ -55,6 +55,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-</style>
