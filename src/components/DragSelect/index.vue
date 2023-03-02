@@ -1,11 +1,11 @@
 <template>
   <el-select
-    ref="dragSelect"
-    v-model="selectVal"
-    v-bind="$attrs"
-    class="drag-select"
     multiple
-    v-on="$listeners"
+    clearable
+    ref="dragSelect"
+    class="drag-select"
+    v-model="selectVal"
+    :placeholder="placeholder"
   >
     <slot />
   </el-select>
@@ -19,7 +19,11 @@ export default {
   props: {
     value: {
       type: Array,
-      required: true
+      default: () => []
+    },
+    placeholder: {
+      type: String,
+      default: '请选择'
     }
   },
   computed: {
@@ -40,8 +44,10 @@ export default {
       const el = this.$refs.dragSelect.$el.querySelectorAll(
         '.el-select__tags > span'
       )[0]
+      if (!el) return
       this.sortable = Sortable.create(el, {
         ghostClass: 'sortable-ghost', // Class name for the drop placeholder,
+        animation: 300, // ms, number 单位：ms，定义排序动画的时间
         setData: (dataTransfer) => {
           dataTransfer.setData('Text', '')
         },

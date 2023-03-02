@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-drag-select v-model="select" style="width:500px;" multiple placeholder="请选择">
+    <el-drag-select v-model="select" style="width:500px;">
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
     </el-drag-select>
 
@@ -18,7 +18,7 @@ export default {
   components: { ElDragSelect },
   data() {
     return {
-      select: ['1', '2', '3'],
+      select: [],
       options: [
         {
           value: '1',
