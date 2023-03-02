@@ -74,7 +74,12 @@ export const constantRoutes = [
         component: () => import('@/views/select/pagingSelect/index'),
         meta: { title: '下拉分页 select', icon: 'dashboard' }
       },
-
+      {
+        path: 'dragPagingSelect',
+        name: 'DragPagingSelect',
+        component: () => import('@/views/select/DragPagingSelect/index'),
+        meta: { title: '可拖拽下拉 select', icon: 'dashboard' }
+      },
       {
         path: 'tableMultipleSelect',
         name: 'TableMultipleSelect',
