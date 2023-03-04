@@ -57,13 +57,11 @@
 import { getSelectTableList } from '@/api/table'
 
 import TableLayout from '@/components/TableLayout'
-import SearchForm from '@/views/table/searchTable/components/SearchForm'
 
 export default {
   name: 'TableDialog',
   components: {
-    TableLayout,
-    SearchForm
+    TableLayout
   },
   props: {
     exportSelected: {
@@ -113,7 +111,6 @@ export default {
       this.pageParams.page = 1
       this.searchParams = {}
       this.getData()
-      console.log(this.maxAllowedNumber);
       this.selected = this.maxAllowedNumber > data.length ? data : []
     },
 
@@ -155,7 +152,7 @@ export default {
       this.pageParams.page = val
       this.getData()
     },
-    
+
     // 重置
     resetData() {
       this.searchParams = {}

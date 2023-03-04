@@ -3,12 +3,12 @@
     <el-row :gutter="24">
       <el-col :sm="24" :md="12" :lg="8">
         <el-form-item label="标题名称:">
-          <el-input v-model="params.title" clearable placeholder="请输入标题名称" />
+          <el-input v-model="searchParams.title" clearable placeholder="请输入标题名称" />
         </el-form-item>
       </el-col>
       <el-col :sm="24" :md="12" :lg="8">
         <el-form-item label="姓名:">
-          <el-input v-model="params.operName" placeholder="请输入姓名/登录账号" clearable />
+          <el-input v-model="searchParams.operName" placeholder="请输入姓名/登录账号" clearable />
         </el-form-item>
       </el-col>
       <el-col :sm="24" :md="12" :lg="8">
@@ -35,30 +35,30 @@ export default {
   data() {
     return {
       useData: null,
-      params: {}
+      searchParams: {}
     }
   },
   watch: {
     useData(val) {
       if (val === null) {
-        this.params.startTime = ''
-        this.params.endTime = ''
+        this.searchParams.startTime = ''
+        this.searchParams.endTime = ''
       } else {
-        this.params.startTime = val[0]
-        this.params.endTime = val[1]
+        this.searchParams.startTime = val[0]
+        this.searchParams.endTime = val[1]
       }
     }
   },
   methods: {
     // 暴露参数
     exposeParams() {
-      return JSON.parse(JSON.stringify(this.params))
+      return JSON.parse(JSON.stringify(this.searchParams))
     },
     // 重置参数
     resetParams() {
       this.useData = null
-      this.params = this.$options.data().params
-      return JSON.parse(JSON.stringify(this.params))
+      this.searchParams = this.$options.data().searchParams
+      return JSON.parse(JSON.stringify(this.searchParams))
     }
   }
 }
