@@ -32,9 +32,19 @@
           row-key="id"
           ref="multipleTable"
           :data="tableData"
-          @select="handleOneSelect"
+          @row-click="clickRowHandle"
         >
-          <el-table-column type="selection" width="50" />
+          <el-table-column>
+            <template slot-scope="scope">
+              <el-radio
+                v-model="selected"
+                :label="scope.row.id"
+                @change.native="submitHandle(scope.row)"
+              >
+                <i />
+              </el-radio>
+            </template>
+          </el-table-column>
           <el-table-column prop="date" label="日期">
             <template slot-scope="{row}">
               <div>{{ row.date }} = {{ row.id }}</div>
@@ -45,11 +55,6 @@
         </el-table>
       </template>
     </table-layout>
-
-    <span slot="footer" class="dialog-footer">
-      <el-button @click="closeHandle">取 消</el-button>
-      <el-button type="primary" @click="submitHandle">确 定</el-button>
-    </span>
   </el-dialog>
 </template>
 
@@ -57,21 +62,16 @@
 import { getSelectTableList } from '@/api/table'
 
 import TableLayout from '@/components/TableLayout'
-import SearchForm from '@/views/table/searchTable/components/SearchForm'
 
 export default {
   name: 'TableDialog',
   components: {
-    TableLayout,
-    SearchForm
+    TableLayout
   },
   props: {
-    exportSelected: {
-      type: Array,
-      default: () => []
-    },
-    maxAllowedNumber: {
-      type: Number
+    selectedRow: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
@@ -86,35 +86,27 @@ export default {
         page: 1,
         limit: 5,
         total: 0
-      },
-
-      // 选中的数据
-      selected: []
+      }
     }
   },
-  watch: {
-    tableData: {
-      handler(newV) {
-        this.$nextTick(() => {
-          const selectedIds = this.selected.map((item) => item.id)
-          newV.forEach((item) => {
-            if (selectedIds.includes(item.id)) {
-              this.$refs.multipleTable.toggleRowSelection(item, true)
-            }
-          })
-        })
+
+  computed: {
+    selected: {
+      get() {
+        return (this.selectedRow && this.selectedRow.id) || ''
       },
-      deep: true
+      set(val) {
+        return val
+      }
     }
+  },
+  mounted() {
+    this.getData()
   },
   methods: {
-    show(data) {
+    show() {
       this.dialogVisible = true
-      this.pageParams.page = 1
       this.searchParams = {}
-      this.getData()
-      console.log(this.maxAllowedNumber);
-      this.selected = this.maxAllowedNumber > data.length ? data : []
     },
 
     // 获取列表
@@ -155,7 +147,7 @@ export default {
       this.pageParams.page = val
       this.getData()
     },
-    
+
     // 重置
     resetData() {
       this.searchParams = {}
@@ -165,50 +157,23 @@ export default {
       }
       this.getData()
     },
-    // 单选数据
-    handleOneSelect(rows, row) {
-      if (this.selected.length == this.maxAllowedNumber) {
-        if (this.selected.find((item) => item.id === row.id)) {
-          this.selected = this.selected.filter((item) => item.id !== row.id)
-        } else {
-          this.$message.error(`最多选择 ${this.maxAllowedNumber} 个`)
-          this.$refs.multipleTable.toggleRowSelection(row, false)
-        }
-      } else if (this.selected.length < this.maxAllowedNumber && row) {
-        if (this.selected.find((item) => item.id === row.id)) {
-          this.selected = this.selected.filter((item) => item.id !== row.id)
-        } else {
-          this.selected.push(row)
-        }
-      } else if (
-        this.selected.length > this.maxAllowedNumber ||
-        rows.length > this.maxAllowedNumber
-      ) {
-        this.$message.error(`最多选择 ${this.maxAllowedNumber} 个`)
-        this.$refs.multipleTable.toggleRowSelection(row, false)
-      }
+
+    // 获取选中数据
+    submitHandle(row) {
+      this.$emit('select', row)
+      this.closeHandle()
     },
 
-    // 提交数据
-    submitHandle() {
-      this.$emit('select', this.selected)
-      this.closeHandle()
+    // 点击行被选中
+    clickRowHandle(row) {
+      this.submitHandle(row)
     },
 
     // 关闭弹窗
     closeHandle() {
       this.dialogVisible = false
-      this.selected = []
+      this.searchParams = {}
     }
   }
 }
 </script>
-
-<style scoped lang="scss">
-/deep/.el-table__header-wrapper .el-checkbox {
-  display: none;
-}
-/deep/.el-dialog__body {
-  padding: 0 20px;
-}
-</style>

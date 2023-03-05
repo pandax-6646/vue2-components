@@ -2,24 +2,14 @@
   <div class="app-container">
     <el-form ref="form">
       <el-col :sm="24" :md="12" :lg="8">
-        <el-form-item label="最多可选：">
-          <el-input-number
-            v-model="maxAllowedNumber"
-            step-strictly
-            :step="1"
-            :min="1"
-            :max="10"
-          />
-        </el-form-item>
-      </el-col>
-      <el-col :sm="24" :md="12" :lg="8">
-        <el-form-item label="添加数据：">
-          <el-button plain size="mini" icon="el-icon-plus" :disabled="selected.length == maxAllowedNumber" circle @click="showDialog" />
+        <el-form-item label="操作：">
+          <el-button plain size="mini" icon="el-icon-plus" @click="showDialog" />
+          <el-button size="mini" @click="selectedRow = {}">删除选中</el-button>
         </el-form-item>
       </el-col>
       <el-col :span="24">
         <el-form-item label="选中的数据：">
-          <el-table border row-key="id" ref="multipleTable" :data="selected">
+          <el-table border row-key="id" ref="multipleTable" :data="getSelectRows">
             <el-table-column prop="date" label="日期">
               <template slot-scope="{row}">
                 <div>{{ row.date }} = {{ row.id }}</div>
@@ -31,7 +21,7 @@
         </el-form-item>
       </el-col>
     </el-form>
-    <table-dialog ref="tableDialog" @select="select" :maxAllowedNumber="maxAllowedNumber" />
+    <table-dialog ref="tableDialog" @select="select" :selectedRow="selectedRow" />
   </div>
 </template>
 
@@ -39,25 +29,28 @@
 import TableDialog from './components/TableDialog'
 export default {
   name: 'tableSingleSelect',
-  data() {
-    return {
-      maxAllowedNumber: 1,
-      // 选中回显数据
-      selected: []
-    }
-  },
   components: {
     TableDialog
   },
+  data() {
+    return {
+      // 选中回显数据
+      selectedRow: {}
+    }
+  },
+  computed: {
+    getSelectRows() {
+      if (!this.selectedRow.id) return []
+      return [this.selectedRow]
+    }
+  },
   methods: {
     showDialog() {
-      this.$refs.tableDialog.show(JSON.parse(JSON.stringify(this.selected)))
+      this.$refs.tableDialog.show()
     },
-    select(list) {
-      this.selected = list
+    select(row) {
+      this.selectedRow = row
     }
   }
 }
 </script>
-
-<style scoped lang="scss"></style>
