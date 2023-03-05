@@ -17,9 +17,19 @@
         :value="item.id"
       />
     </drag-paging-select>
-    <h4>选中的数据 id 列表</h4>
-    <p v-if="multiple">多选 {{dragValue ? '可' : '不可'}} 拖拽数据 {{ selectIds.join(',') }}</p>
-    <p v-else>单选数据 {{ selectIds }}</p>
+    <div style="margin-top:30px;">
+      <p style="color: #b3b3b3">需在源码中修改单、多选，拖拽</p>
+      <h4>选中的数据 id 列表</h4>
+
+      <template v-if="multiple && Array.isArray(selectIds)">
+        <p>多选 {{dragValue ? '可' : '不可'}} 拖拽数据</p>
+        <el-tag v-for="item of selectIds" :key="item" style="margin-right:15px;">{{ item }}</el-tag>
+      </template>
+      <template v-else>
+        <p>单选数据</p>
+        <el-tag v-if="selectIds" style="margin-right:15px;">{{ selectIds }}</el-tag>
+      </template>
+    </div>
   </div>
 </template>
 

@@ -15,8 +15,10 @@
         :value="item.id"
       />
     </paging-select>
-    <h4>选中的数据 id 列表</h4>
-    <p>{{ selectIds.join(', ') }}</p>
+    <div style="margin-top:30px;">
+      <h4>选中的数据 id 列表</h4>
+      <el-tag v-for="item of selectIds" :key="item" style="margin-right:15px;">{{ item }}</el-tag>
+    </div>
   </div>
 </template>
 

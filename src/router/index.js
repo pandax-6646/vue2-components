@@ -51,7 +51,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: '' }
+      meta: { title: '首页' }
     }]
   },
 
@@ -60,19 +60,19 @@ export const constantRoutes = [
     name: 'Select',
     component: Layout,
     redirect: '/select/dragSelect',
-    meta: { title: '选择器', icon: 'nested' },
+    meta: { title: '选择器', icon: 'el-icon-s-operation' },
     children: [
       {
         path: 'dragSelect',
         name: 'DragSelect',
         component: () => import('@/views/select/dragSelect/index'),
-        meta: { title: '多选拖拽 select', icon: '' }
+        meta: { title: '多选拖拽 select' }
       },
       {
         path: 'SingleQueryCondition',
         name: 'singleQueryCondition',
         component: () => import('@/views/select/singleQueryCondition'),
-        meta: { title: '单条件分页查询', icon: '' },
+        meta: { title: '单条件分页查询' },
         children: [
           {
             path: 'pagingSelect',
@@ -83,7 +83,7 @@ export const constantRoutes = [
             path: 'dragPagingSelect',
             name: 'DragPagingSelect',
             component: () => import('@/views/select/singleQueryCondition/dragPagingSelect/index'),
-            meta: { title: '单选可变多选拖拽', icon: '' }
+            meta: { title: '单、多选拖拽 select' }
           },
         ]
       },
@@ -91,19 +91,19 @@ export const constantRoutes = [
         path: 'MultipleQueryCondition',
         name: 'multipleQueryCondition',
         component: () => import('@/views/select/multipleQueryCondition'),
-        meta: { title: '多条件查询', icon: '' },
+        meta: { title: '多条件查询' },
         children: [
           {
             path: 'tableSingleSelect',
             name: 'TableSingleSelect',
             component: () => import('@/views/select/multipleQueryCondition/tableSingleSelect/index'),
-            meta: { title: '弹窗 table 单选', icon: '' }
+            meta: { title: '弹窗 table 单选' }
           },
           {
             path: 'tableMultipleSelect',
             name: 'TableMultipleSelect',
             component: () => import('@/views/select/multipleQueryCondition/tableMultipleSelect/index'),
-            meta: { title: '弹窗 table 多选', icon: '' }
+            meta: { title: '弹窗 table 多选' }
           },
         ]
       }
@@ -115,25 +115,25 @@ export const constantRoutes = [
     name: 'Table',
     component: Layout,
     redirect: '/table/searchTable',
-    meta: { title: '表格', icon: 'nested' },
+    meta: { title: '表格', icon: 'el-icon-s-order' },
     children: [
       {
         path: 'searchTable',
         name: 'SearchTable',
         component: () => import('@/views/table/searchTable/index'),
-        meta: { title: '查询 table', icon: 'dashboard' }
+        meta: { title: '查询 table' }
       },
       {
         path: 'treeTable',
         name: 'sreeTable',
         component: () => import('@/views/table/treeTable/index'),
-        meta: { title: '树形 table 填写', icon: 'dashboard' }
+        meta: { title: '树形 table 填写' }
       },
       {
         path: 'profiledTable',
         name: 'ProfiledTable',
         component: () => import('@/views/table/profiledTable/index'),
-        meta: { title: '异形 table 填写', icon: 'dashboard' }
+        meta: { title: '异形 table 填写' }
       }
     ]
   },
@@ -142,25 +142,25 @@ export const constantRoutes = [
     path: '/editor',
     name: 'Editor',
     component: Layout,
-    meta: { title: '编辑器', icon: 'nested' },
+    meta: { title: '编辑器', icon: 'el-icon-edit-outline' },
     children: [
       {
         path: 'richTextEditor',
         name: 'RichTextEditor',
         component: () => import('@/views/editor/richTextEditor'),
-        meta: { title: '富文本编辑器', icon: '' },
+        meta: { title: '富文本编辑器' },
         children: [
           {
             path: 'wangeEditor',
             name: 'WangeEditor',
             component: () => import('@/views/editor/richTextEditor/wangeEditor/index'),
-            meta: { title: 'wangeEditor', icon: 'dashboard' }
+            meta: { title: 'wangeEditor' }
           },
           {
             path: 'tinymce',
             name: 'Tinymce',
             component: () => import('@/views/editor/richTextEditor/tinymce/index'),
-            meta: { title: 'tinymce', icon: 'dashboard' }
+            meta: { title: 'tinymce' }
           },
         ]
       },
@@ -169,13 +169,13 @@ export const constantRoutes = [
         path: 'jsonEditor',
         name: 'jsonEditor',
         component: () => import('@/views/editor/jsonEditor/index'),
-        meta: { title: 'json 编辑器', icon: 'dashboard' }
+        meta: { title: 'json 编辑器' }
       },
       {
         path: 'markdownEditor',
         name: 'MarkdownEditor',
         component: () => import('@/views/editor/markdownEditor/index'),
-        meta: { title: 'markdown 编辑器', icon: 'dashboard' }
+        meta: { title: 'markdown 编辑器' }
       }
     ]
   },
