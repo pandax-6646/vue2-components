@@ -3,23 +3,24 @@
     <el-form ref="form">
       <el-col :sm="24" :md="12" :lg="8">
         <el-form-item label="最多可选：">
-          <el-input-number
-            v-model="maxAllowedNumber"
-            step-strictly
-            :step="1"
-            :min="1"
-            :max="10"
-          />
+          <el-input-number v-model="maxAllowedNumber" step-strictly :step="1" :min="1" :max="10" />
         </el-form-item>
       </el-col>
       <el-col :sm="24" :md="12" :lg="8">
         <el-form-item label="添加数据：">
-          <el-button plain size="mini" icon="el-icon-plus" :disabled="selected.length == maxAllowedNumber" circle @click="showDialog" />
+          <el-button
+            plain
+            size="mini"
+            icon="el-icon-plus"
+            :disabled="selectedRows.length == maxAllowedNumber"
+            circle
+            @click="showDialog"
+          />
         </el-form-item>
       </el-col>
       <el-col :span="24">
         <el-form-item label="选中的数据：">
-          <el-table border row-key="id" ref="multipleTable" :data="selected">
+          <el-table border row-key="id" ref="multipleTable" :data="selectedRows">
             <el-table-column prop="date" label="日期">
               <template slot-scope="{row}">
                 <div>{{ row.date }} = {{ row.id }}</div>
@@ -41,9 +42,11 @@ export default {
   name: 'tableMultipleSelect',
   data() {
     return {
-      maxAllowedNumber: 1,
+      // 最多可选
+      maxAllowedNumber: Math.floor(Math.random() * 10),
+
       // 选中回显数据
-      selected: []
+      selectedRows: []
     }
   },
   components: {
@@ -51,10 +54,10 @@ export default {
   },
   methods: {
     showDialog() {
-      this.$refs.tableDialog.show(JSON.parse(JSON.stringify(this.selected)))
+      this.$refs.tableDialog.show(JSON.parse(JSON.stringify(this.selectedRows)))
     },
-    select(list) {
-      this.selected = list
+    select(rows) {
+      this.selectedRows = rows
     }
   }
 }

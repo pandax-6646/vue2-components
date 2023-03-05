@@ -32,7 +32,7 @@
           row-key="id"
           ref="multipleTable"
           :data="tableData"
-          @select="handleOneSelect"
+          @select="handleSelect"
         >
           <el-table-column type="selection" width="50" />
           <el-table-column prop="date" label="日期">
@@ -64,12 +64,9 @@ export default {
     TableLayout
   },
   props: {
-    exportSelected: {
-      type: Array,
-      default: () => []
-    },
     maxAllowedNumber: {
-      type: Number
+      type: Number,
+      default: 5
     }
   },
   data() {
@@ -87,14 +84,14 @@ export default {
       },
 
       // 选中的数据
-      selected: []
+      selectedRows: []
     }
   },
   watch: {
     tableData: {
       handler(newV) {
         this.$nextTick(() => {
-          const selectedIds = this.selected.map((item) => item.id)
+          const selectedIds = this.selectedRows.map((item) => item.id)
           newV.forEach((item) => {
             if (selectedIds.includes(item.id)) {
               this.$refs.multipleTable.toggleRowSelection(item, true)
@@ -111,7 +108,7 @@ export default {
       this.pageParams.page = 1
       this.searchParams = {}
       this.getData()
-      this.selected = this.maxAllowedNumber > data.length ? data : []
+      this.selectedRows = this.maxAllowedNumber > data.length ? data : []
     },
 
     // 获取列表
@@ -163,22 +160,22 @@ export default {
       this.getData()
     },
     // 单选数据
-    handleOneSelect(rows, row) {
-      if (this.selected.length == this.maxAllowedNumber) {
-        if (this.selected.find((item) => item.id === row.id)) {
-          this.selected = this.selected.filter((item) => item.id !== row.id)
+    handleSelect(rows, row) {
+      if (this.selectedRows.length == this.maxAllowedNumber) {
+        if (this.selectedRows.find((item) => item.id === row.id)) {
+          this.selectedRows = this.selectedRows.filter((item) => item.id !== row.id)
         } else {
           this.$message.error(`最多选择 ${this.maxAllowedNumber} 个`)
           this.$refs.multipleTable.toggleRowSelection(row, false)
         }
-      } else if (this.selected.length < this.maxAllowedNumber && row) {
-        if (this.selected.find((item) => item.id === row.id)) {
-          this.selected = this.selected.filter((item) => item.id !== row.id)
+      } else if (this.selectedRows.length < this.maxAllowedNumber && row) {
+        if (this.selectedRows.find((item) => item.id === row.id)) {
+          this.selectedRows = this.selectedRows.filter((item) => item.id !== row.id)
         } else {
-          this.selected.push(row)
+          this.selectedRows.push(row)
         }
       } else if (
-        this.selected.length > this.maxAllowedNumber ||
+        this.selectedRows.length > this.maxAllowedNumber ||
         rows.length > this.maxAllowedNumber
       ) {
         this.$message.error(`最多选择 ${this.maxAllowedNumber} 个`)
@@ -188,14 +185,14 @@ export default {
 
     // 提交数据
     submitHandle() {
-      this.$emit('select', this.selected)
+      this.$emit('select', this.selectedRows)
       this.closeHandle()
     },
 
     // 关闭弹窗
     closeHandle() {
       this.dialogVisible = false
-      this.selected = []
+      this.selectedRows = []
     }
   }
 }
