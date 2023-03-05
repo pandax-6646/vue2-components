@@ -19,7 +19,7 @@
     </drag-paging-select>
     <h4>选中的数据 id 列表</h4>
     <p v-if="multiple">多选 {{dragValue ? '可' : '不可'}} 拖拽数据 {{ selectIds.join(',') }}</p>
-    <p v-else>单选数据{{ selectIds }}</p>
+    <p v-else>单选数据 {{ selectIds }}</p>
   </div>
 </template>
 
@@ -44,7 +44,7 @@ export default {
       multiple: true,
 
       // 多选时是否启用拖拽
-      dragValue: true
+      dragValue: false
     }
   },
 

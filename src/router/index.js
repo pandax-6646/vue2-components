@@ -51,7 +51,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'dashboard' }
+      meta: { title: '首页', icon: '' }
     }]
   },
 
@@ -66,31 +66,46 @@ export const constantRoutes = [
         path: 'dragSelect',
         name: 'DragSelect',
         component: () => import('@/views/select/dragSelect/index'),
-        meta: { title: '拖拽 select', icon: 'dashboard' }
+        meta: { title: '多选拖拽 select', icon: '' }
       },
       {
-        path: 'pagingSelect',
-        name: 'PagingSelect',
-        component: () => import('@/views/select/pagingSelect/index'),
-        meta: { title: '下拉分页 select', icon: 'dashboard' }
+        path: 'SingleQueryCondition',
+        name: 'singleQueryCondition',
+        component: () => import('@/views/select/singleQueryCondition'),
+        meta: { title: '单条件分页查询', icon: '' },
+        children: [
+          {
+            path: 'pagingSelect',
+            name: 'PagingSelect',
+            component: () => import('@/views/select/singleQueryCondition/pagingSelect/index'),
+            meta: { title: '多选 select' }
+          }, {
+            path: 'dragPagingSelect',
+            name: 'DragPagingSelect',
+            component: () => import('@/views/select/singleQueryCondition/dragPagingSelect/index'),
+            meta: { title: '单选可变多选拖拽', icon: '' }
+          },
+        ]
       },
       {
-        path: 'dragPagingSelect',
-        name: 'DragPagingSelect',
-        component: () => import('@/views/select/DragPagingSelect/index'),
-        meta: { title: '可拖拽下拉 select', icon: 'dashboard' }
-      },
-      {
-        path: 'tableMultipleSelect',
-        name: 'TableMultipleSelect',
-        component: () => import('@/views/select/tableMultipleSelect/index'),
-        meta: { title: '弹窗 table 多选', icon: 'dashboard' }
-      },
-      {
-        path: 'tableSingleSelect',
-        name: 'TableSingleSelect',
-        component: () => import('@/views/select/tableSingleSelect/index'),
-        meta: { title: '弹窗 table 单选', icon: 'dashboard' }
+        path: 'MultipleQueryCondition',
+        name: 'multipleQueryCondition',
+        component: () => import('@/views/select/multipleQueryCondition'),
+        meta: { title: '多条件查询', icon: '' },
+        children: [
+          {
+            path: 'tableSingleSelect',
+            name: 'TableSingleSelect',
+            component: () => import('@/views/select/multipleQueryCondition/tableSingleSelect/index'),
+            meta: { title: '弹窗 table 单选', icon: '' }
+          },
+          {
+            path: 'tableMultipleSelect',
+            name: 'TableMultipleSelect',
+            component: () => import('@/views/select/multipleQueryCondition/tableMultipleSelect/index'),
+            meta: { title: '弹窗 table 多选', icon: '' }
+          },
+        ]
       }
     ]
   },
@@ -131,7 +146,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'richTextEditor',
-        name: 'richTextEditor',
+        name: 'RichTextEditor',
         component: () => import('@/views/editor/richTextEditor'),
         meta: { title: '富文本编辑器', icon: '' },
         children: [
