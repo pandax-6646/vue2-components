@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import ProjectEdit from '../components/ProjectEdit'
-import ProjectView from '../components/ProjectView'
+import ProjectEdit from './components/ProjectEdit'
+import ProjectView from './components/ProjectView'
 export default {
   name: 'profiledTable',
   components: {
