@@ -34,6 +34,7 @@
                               <el-input
                                 :disabled="isDetails"
                                 clearable
+                                placeholder="请输入检测项目/要求"
                                 v-model="projectScope.row.itemName"
                                 size="mini"
                               />
@@ -55,6 +56,7 @@
                                 :precision="2"
                                 style="width: 100%"
                                 :min="0"
+                                placeholder="请输入使用时长"
                                 :max="999999999"
                                 @change="serviceUseTimeHandle(orderScope.$index)"
                               />
@@ -74,6 +76,7 @@
                                 v-model="projectScope.row.itemAmount"
                                 size="mini"
                                 :precision="2"
+                                placeholder="请输入服务金额"
                                 :min="0"
                                 style="width: 100%"
                                 :max="999999999"
@@ -144,6 +147,7 @@
               >
                 <el-input
                   :disabled="isDetails"
+                  placeholder="请输入样品名称"
                   clearable
                   v-model="orderScope.row.specimenName"
                   size="mini"
@@ -162,6 +166,7 @@
                 <el-input
                   clearable
                   :disabled="isDetails"
+                  placeholder="请输入样品编号"
                   v-model="orderScope.row.specimenNum"
                   size="mini"
                 />
@@ -182,7 +187,7 @@
                   type="date"
                   clearable
                   value-format="yyyy-MM-dd"
-                  placeholder="选择日期"
+                  placeholder="请选择日期"
                   size="mini"
                   style="width: 100%;"
                 />
@@ -202,6 +207,7 @@
                   style="width: 100%"
                   :precision="2"
                   v-model="orderScope.row.price"
+                  placeholder="请输入单价"
                   :min="0"
                   :max="999999999"
                   size="mini"
@@ -222,6 +228,7 @@
                   style="width: 100%"
                   :step="1"
                   step-strictly
+                  placeholder="请输入数量"
                   v-model="orderScope.row.specimenQuantity"
                   :min="0"
                   :max="999999999"
