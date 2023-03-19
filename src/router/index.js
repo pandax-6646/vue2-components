@@ -51,7 +51,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页' }
+      meta: { title: '首页', icon: 'el-icon-user' }
     }]
   },
 
@@ -69,9 +69,10 @@ export const constantRoutes = [
         meta: { title: '多选拖拽 select' }
       },
       {
-        path: 'SingleQueryCondition',
-        name: 'singleQueryCondition',
+        path: 'singleQueryCondition',
+        name: 'SingleQueryCondition',
         component: () => import('@/views/select/singleQueryCondition'),
+        redirect: '/select/singleQueryCondition/pagingSelect',
         meta: { title: '单条件分页查询' },
         children: [
           {
@@ -91,6 +92,7 @@ export const constantRoutes = [
         path: 'MultipleQueryCondition',
         name: 'multipleQueryCondition',
         component: () => import('@/views/select/multipleQueryCondition'),
+        redirect: '/select/tableSingleSelect/pagingSelect',
         meta: { title: '多条件查询' },
         children: [
           {
@@ -115,7 +117,7 @@ export const constantRoutes = [
     name: 'Table',
     component: Layout,
     redirect: '/table/searchTable',
-    meta: { title: '表格', icon: 'el-icon-s-order' },
+    meta: { title: '表格', icon: 'el-icon-document' },
     children: [
       {
         path: 'searchTable',
@@ -143,12 +145,14 @@ export const constantRoutes = [
     name: 'Editor',
     component: Layout,
     meta: { title: '编辑器', icon: 'el-icon-edit-outline' },
+    redirect: '/editor/richTextEditor',
     children: [
       {
         path: 'richTextEditor',
         name: 'RichTextEditor',
         component: () => import('@/views/editor/richTextEditor'),
         meta: { title: '富文本编辑器' },
+        redirect: '/editor/richTextEditor/wangeEditor',
         children: [
           {
             path: 'wangeEditor',
@@ -164,7 +168,6 @@ export const constantRoutes = [
           },
         ]
       },
-
       {
         path: 'jsonEditor',
         name: 'jsonEditor',
@@ -176,6 +179,52 @@ export const constantRoutes = [
         name: 'MarkdownEditor',
         component: () => import('@/views/editor/markdownEditor/index'),
         meta: { title: 'markdown 编辑器' }
+      }
+    ]
+  },
+
+  {
+    path: '/file',
+    name: 'avatar',
+    component: Layout,
+    meta: { title: '文件操作', icon: 'el-icon-folder-opened' },
+    redirect: '/file/tableToExcel',
+    children: [
+      {
+        path: 'tableToExcel',
+        name: 'TableToExcel',
+        component: () => import('@/views/file/tableToExcel/index'),
+        meta: { title: 'table 导出 Excel' }
+      },
+      {
+        path: 'domToExcel',
+        name: 'DOMToExcel',
+        component: () => import('@/views/file/DOMToExcel/index'),
+        meta: { title: 'DOM 元素导出 Excel' }
+      },
+      {
+        path: 'parseExcel',
+        name: 'ParseExcel',
+        component: () => import('@/views/file/parseExcel/index'),
+        meta: { title: '解析 Excel' }
+      },
+      {
+        path: 'uploadFile',
+        name: 'UploadFile',
+        component: () => import('@/views/file/uploadFile/index'),
+        meta: { title: '上传文件' }
+      },
+      {
+        path: 'uploadAvatar',
+        name: 'UploadAvatar',
+        component: () => import('@/views/file/uploadAvatar/index'),
+        meta: { title: '上传头像' }
+      },
+      {
+        path: 'viewFile',
+        name: 'ViewFile',
+        component: () => import('@/views/file/viewFile/index'),
+        meta: { title: '预览文件' }
       }
     ]
   },
