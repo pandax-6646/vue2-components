@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'richTextEditor'
+  name: 'RichTextEditor'
 }
 </script>
 

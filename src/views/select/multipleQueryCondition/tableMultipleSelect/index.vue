@@ -39,7 +39,7 @@
 <script>
 import TableDialog from './components/TableDialog'
 export default {
-  name: 'tableMultipleSelect',
+  name: 'TableMultipleSelect',
   data() {
     return {
       // 最多可选

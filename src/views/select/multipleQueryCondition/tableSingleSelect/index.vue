@@ -28,7 +28,7 @@
 <script>
 import TableDialog from './components/TableDialog'
 export default {
-  name: 'tableSingleSelect',
+  name: 'TableSingleSelect',
   components: {
     TableDialog
   },

@@ -12,7 +12,7 @@
 import ProjectEdit from './components/ProjectEdit'
 import ProjectView from './components/ProjectView'
 export default {
-  name: 'treeTable',
+  name: 'TreeTable',
   components: {
     ProjectEdit,
     ProjectView

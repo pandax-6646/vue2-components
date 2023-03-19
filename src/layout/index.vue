@@ -33,7 +33,6 @@ export default {
       return this.$store.state.app.device
     },
     needTagsView() {
-      console.log(this.$store.state.settings.tagsView)
       return this.$store.state.settings.tagsView
     },
     fixedHeader() {

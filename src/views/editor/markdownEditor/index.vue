@@ -27,7 +27,7 @@ const content = `
 `
 
 export default {
-  name: 'markdownEditorDemo',
+  name: 'MarkdownEditorDemo',
   components: { MarkdownEditor },
   data() {
     return {
