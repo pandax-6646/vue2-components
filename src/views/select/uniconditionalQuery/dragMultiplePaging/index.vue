@@ -1,11 +1,11 @@
 <template>
   <div class="paging-select-container">
     <drag-paging-select
-      :dragValue="dragValue"
+      :dragValue="true"
       v-model="selectIds"
       :placeholder="placeholder"
       :loading="loading"
-      :multiple="multiple"
+      :multiple="true"
       @loadMore="loadMore"
       @remoteMethod="remoteMethod"
       style="width: 500px"
@@ -18,17 +18,9 @@
       />
     </drag-paging-select>
     <div style="margin-top:30px;">
-      <p style="color: #b3b3b3">需在源码中修改单、多选，拖拽</p>
       <h4>选中的数据 id 列表</h4>
 
-      <template v-if="multiple && Array.isArray(selectIds)">
-        <p>多选 {{dragValue ? '可' : '不可'}} 拖拽数据</p>
-        <el-tag v-for="item of selectIds" :key="item" style="margin-right:15px;">{{ item }}</el-tag>
-      </template>
-      <template v-else>
-        <p>单选数据</p>
-        <el-tag v-if="selectIds" style="margin-right:15px;">{{ selectIds }}</el-tag>
-      </template>
+      <el-tag v-for="item of selectIds" :key="item" style="margin-right:15px;">{{ item }}</el-tag>
     </div>
   </div>
 </template>
@@ -37,7 +29,7 @@
 import { getSelectTableList } from '@/api/table'
 import DragPagingSelect from '@/components/DragPagingSelect'
 export default {
-  name: 'DragPagingSelectDemo',
+  name: 'DragMultiplePaging',
   components: { DragPagingSelect },
   data() {
     return {
@@ -48,13 +40,7 @@ export default {
 
       remoteOptions: [],
       page: 1,
-      total: 0,
-
-      // 是否多选
-      multiple: true,
-
-      // 多选时是否启用拖拽
-      dragValue: false
+      total: 0
     }
   },
 

@@ -1,6 +1,6 @@
 <template>
   <div class="paging-select-container">
-    <paging-select
+    <drag-paging-select
       v-model="selectIds"
       :placeholder="placeholder"
       :loading="loading"
@@ -14,20 +14,20 @@
         :label="`${item.name}-${item.id}`"
         :value="item.id"
       />
-    </paging-select>
+    </drag-paging-select>
     <div style="margin-top:30px;">
       <h4>选中的数据 id 列表</h4>
-      <el-tag v-for="item of selectIds" :key="item" style="margin-right:15px;">{{ item }}</el-tag>
+      <el-tag v-if="selectIds" style="margin-right:15px;">{{ selectIds }}</el-tag>
     </div>
   </div>
 </template>
 
 <script>
 import { getSelectTableList } from '@/api/table'
-import PagingSelect from '@/components/PagingSelect'
+import DragPagingSelect from '@/components/DragPagingSelect'
 export default {
-  name: 'PagingSelectDemo',
-  components: { PagingSelect },
+  name: 'RadioPaging',
+  components: { DragPagingSelect },
   data() {
     return {
       placeholder: '请输入关键字查询',
@@ -40,6 +40,7 @@ export default {
       total: 0
     }
   },
+
   methods: {
     // 加载远程数据
     remoteMethod(value) {

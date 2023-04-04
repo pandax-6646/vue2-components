@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'MultipleQueryCondition'
+  name: 'UniconditionalQuery'
 }
 </script>
 

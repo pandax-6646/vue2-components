@@ -63,42 +63,37 @@ export const constantRoutes = [
     meta: { title: '选择器', icon: 'el-icon-s-operation' },
     children: [
       {
-        path: 'dragSelect',
-        name: 'DragSelect',
-        component: () => import('@/views/select/dragSelect/index'),
-        meta: { title: '多选拖拽 select' }
-      },
-      {
-        path: 'singleQueryCondition',
-        name: 'SingleQueryCondition',
-        component: () => import('@/views/select/singleQueryCondition'),
-        redirect: '/select/singleQueryCondition/pagingSelect',
-        meta: { title: '单条件分页查询' },
+        path: 'uniconditionalQuery',
+        name: 'UniconditionalQuery',
+        component: () => import('@/views/select/uniconditionalQuery'),
+        redirect: '/select/uniconditionalQuery/radioPaging',
+        meta: { title: '单条件查询' },
         children: [
           {
-            path: 'pagingSelect',
-            name: 'PagingSelect',
-            component: () => import('@/views/select/singleQueryCondition/pagingSelect/index'),
-            meta: { title: '多选 select' }
-          }, {
-            path: 'dragPagingSelect',
-            name: 'DragPagingSelect',
-            component: () => import('@/views/select/singleQueryCondition/dragPagingSelect/index'),
-            meta: { title: '单、多选拖拽 select' }
+            path: 'radioPaging',
+            name: 'RadioPaging',
+            component: () => import('@/views/select/uniconditionalQuery/radioPaging/index'),
+            meta: { title: '单选分页 select' }
           },
+          {
+            path: 'dragMultiplePaging',
+            name: 'DragMultiplePaging',
+            component: () => import('@/views/select/uniconditionalQuery/dragMultiplePaging/index'),
+            meta: { title: '多选分页拖拽 select' }
+          }
         ]
       },
       {
-        path: 'MultipleQueryCondition',
-        name: 'multipleQueryCondition',
-        component: () => import('@/views/select/multipleQueryCondition'),
+        path: 'multiConditionQuery',
+        name: 'MultiConditionQuery',
+        component: () => import('@/views/select/multiConditionQuery'),
         redirect: '/select/tableSingleSelect/pagingSelect',
         meta: { title: '多条件查询' },
         children: [
           {
             path: 'tableSingleSelect',
             name: 'TableSingleSelect',
-            component: () => import('@/views/select/multipleQueryCondition/tableSingleSelect/index'),
+            component: () => import('@/views/select/multiConditionQuery/tableSingleSelect/index'),
             meta: { title: '弹窗 table 单选' }
           },
           {
@@ -112,6 +107,7 @@ export const constantRoutes = [
     ]
   },
 
+  /* 表格 */
   {
     path: '/table',
     name: 'Table',
@@ -139,7 +135,8 @@ export const constantRoutes = [
       }
     ]
   },
-
+  
+  /* 编辑器 */
   {
     path: '/editor',
     name: 'Editor',
@@ -183,6 +180,7 @@ export const constantRoutes = [
     ]
   },
 
+  /* 文件操作 */
   {
     path: '/file',
     name: 'avatar',
@@ -228,111 +226,6 @@ export const constantRoutes = [
       }
     ]
   },
-
-  /*   {
-      path: '/example',
-      component: Layout,
-      redirect: '/example/table',
-      name: 'Example',
-      meta: { title: 'Example', icon: 'el-icon-s-help' },
-      children: [
-        {
-          path: 'table',
-          name: 'Table',
-          component: () => import('@/views/table/index'),
-          meta: { title: 'Table', icon: 'table' }
-        },
-        {
-          path: 'tree',
-          name: 'Tree',
-          component: () => import('@/views/tree/index'),
-          meta: { title: 'Tree', icon: 'tree' }
-        }
-      ]
-    },
-  
-    {
-      path: '/form',
-      component: Layout,
-      children: [
-        {
-          path: 'index',
-          name: 'Form',
-          component: () => import('@/views/form/index'),
-          meta: { title: 'Form', icon: 'form' }
-        }
-      ]
-    },
-  
-    {
-      path: '/nested',
-      component: Layout,
-      redirect: '/nested/menu1',
-      name: 'Nested',
-      meta: {
-        title: 'Nested',
-        icon: 'nested'
-      },
-      children: [
-        {
-          path: 'menu1',
-          component: () => import('@/views/nested/menu1/index'), // Parent router-view
-          name: 'Menu1',
-          meta: { title: 'Menu1' },
-          children: [
-            {
-              path: 'menu1-1',
-              component: () => import('@/views/nested/menu1/menu1-1'),
-              name: 'Menu1-1',
-              meta: { title: 'Menu1-1' }
-            },
-            {
-              path: 'menu1-2',
-              component: () => import('@/views/nested/menu1/menu1-2'),
-              name: 'Menu1-2',
-              meta: { title: 'Menu1-2' },
-              children: [
-                {
-                  path: 'menu1-2-1',
-                  component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                  name: 'Menu1-2-1',
-                  meta: { title: 'Menu1-2-1' }
-                },
-                {
-                  path: 'menu1-2-2',
-                  component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                  name: 'Menu1-2-2',
-                  meta: { title: 'Menu1-2-2' }
-                }
-              ]
-            },
-            {
-              path: 'menu1-3',
-              component: () => import('@/views/nested/menu1/menu1-3'),
-              name: 'Menu1-3',
-              meta: { title: 'Menu1-3' }
-            }
-          ]
-        },
-        {
-          path: 'menu2',
-          component: () => import('@/views/nested/menu2/index'),
-          name: 'Menu2',
-          meta: { title: 'menu2' }
-        }
-      ]
-    },
-  
-    {
-      path: 'external-link',
-      component: Layout,
-      children: [
-        {
-          path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-          meta: { title: 'External Link', icon: 'link' }
-        }
-      ]
-    }, */
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
