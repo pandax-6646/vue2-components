@@ -166,7 +166,6 @@ export default {
     // 重置
     resetHandle() {
       this.currentPage = 1
-      this.currentPageSize = 10
       this.$emit('resetHandle')
     },
 
