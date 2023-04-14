@@ -59,7 +59,7 @@ export const constantRoutes = [
     path: '/select',
     name: 'Select',
     component: Layout,
-    redirect: '/select/dragSelect',
+    redirect: '/select/uniconditionalQuery',
     meta: { title: '选择器', icon: 'el-icon-s-operation' },
     children: [
       {
@@ -87,7 +87,7 @@ export const constantRoutes = [
         path: 'multiConditionQuery',
         name: 'MultiConditionQuery',
         component: () => import('@/views/select/multiConditionQuery'),
-        redirect: '/select/tableSingleSelect/pagingSelect',
+        redirect: '/select/multiConditionQuery/tableSingleSelect',
         meta: { title: '多条件查询' },
         children: [
           {
@@ -99,7 +99,7 @@ export const constantRoutes = [
           {
             path: 'tableMultipleSelect',
             name: 'TableMultipleSelect',
-            component: () => import('@/views/select/multipleQueryCondition/tableMultipleSelect/index'),
+            component: () => import('@/views/select/multiConditionQuery/tableMultipleSelect/index'),
             meta: { title: '弹窗 table 多选' }
           },
         ]
