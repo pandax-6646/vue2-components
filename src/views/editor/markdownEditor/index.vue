@@ -7,7 +7,12 @@
     <div style="margin-top:80px;display: flex; align-items: center">
       <div>
         <el-button type="primary" size="mini" icon="el-icon-document" @click="getHtml">Get HTML</el-button>
-        <el-button type="primary" size="mini" icon="el-icon-document" @click="setMarkdown">Set Markdown</el-button>
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-document"
+          @click="setMarkdown"
+        >Set Markdown</el-button>
       </div>
       <div style="margin-left: 500px;" v-html="html" />
     </div>

@@ -135,7 +135,7 @@ export const constantRoutes = [
       }
     ]
   },
-  
+
   /* 编辑器 */
   {
     path: '/editor',

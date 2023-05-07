@@ -7,7 +7,7 @@
         class="link-type"
         href="https://panjiachen.github.io/vue-element-admin-site/feature/component/rich-editor.html"
       >{{ $t('components.documentation') }}</a>
-    </aside> -->
+    </aside>-->
     <div>
       <tinymce v-model="content" :height="300" />
     </div>

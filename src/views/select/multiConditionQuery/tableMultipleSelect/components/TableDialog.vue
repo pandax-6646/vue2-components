@@ -27,13 +27,7 @@
         </el-form>
       </template>
       <template v-slot:table>
-        <el-table
-          border
-          row-key="id"
-          ref="multipleTable"
-          :data="tableData"
-          @select="handleSelect"
-        >
+        <el-table border row-key="id" ref="multipleTable" :data="tableData" @select="handleSelect">
           <el-table-column type="selection" width="50" />
           <el-table-column prop="date" label="日期">
             <template slot-scope="{row}">
@@ -163,14 +157,18 @@ export default {
     handleSelect(rows, row) {
       if (this.selectedRows.length == this.maxAllowedNumber) {
         if (this.selectedRows.find((item) => item.id === row.id)) {
-          this.selectedRows = this.selectedRows.filter((item) => item.id !== row.id)
+          this.selectedRows = this.selectedRows.filter(
+            (item) => item.id !== row.id
+          )
         } else {
           this.$message.error(`最多选择 ${this.maxAllowedNumber} 个`)
           this.$refs.multipleTable.toggleRowSelection(row, false)
         }
       } else if (this.selectedRows.length < this.maxAllowedNumber && row) {
         if (this.selectedRows.find((item) => item.id === row.id)) {
-          this.selectedRows = this.selectedRows.filter((item) => item.id !== row.id)
+          this.selectedRows = this.selectedRows.filter(
+            (item) => item.id !== row.id
+          )
         } else {
           this.selectedRows.push(row)
         }
