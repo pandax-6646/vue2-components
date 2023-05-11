@@ -23,7 +23,7 @@
                 <el-option v-for="item in options" :key="item" :label="item" :value="item" />
               </el-select>
             </el-form-item>
-            <el-form-item label="单元格宽度自适应">
+            <el-form-item label="单元格宽度自适应" v-if="form.bookType == 'xlsx'">
               <el-radio-group v-model="form.autoWidth">
                 <el-radio :label="true">是</el-radio>
                 <el-radio :label="false">否</el-radio>
@@ -85,6 +85,16 @@ export default {
       multipleSelection: [] // 选中的数据
     }
   },
+  watch: {
+    'form.bookType': {
+      handler(val) {
+        if (val != 'xlsx') {
+          delete this.form.autoWidth
+        }
+      },
+      immediate: true
+    }
+  },
   mounted() {
     this.fetchData()
   },
@@ -98,7 +108,6 @@ export default {
         parameter: {}
       }
       getSelectTableList(params).then((res) => {
-        console.log(res.data)
         this.tableData = res.data
         this.tableLoading = false
       })
@@ -112,35 +121,49 @@ export default {
         return
       }
       this.downloadLoading = true
-      let list = []
-      let tHeader = []
-      let filterVal = []
-      if (this.form.headerType == 0) {
-        tHeader = ['编号', '名字', '地址', '时间']
-        filterVal = ['id', 'name', 'address', 'date']
-        if (this.multipleSelection.length) {
-          list = this.multipleSelection
-        } else {
-          list = this.tableData
-        }
-      } else {
-        list = this.tableData
-      }
+
+      const filterVal = ['id', 'name', 'address', 'date']
+      const list = this.multipleSelection.length
+        ? this.multipleSelection
+        : this.tableData
       const data = this.formatJson(filterVal, list)
 
-      import('@/vendor/Export2Excel').then((excel) => {
-        excel.export_json_to_excel({
-          header: tHeader,
-          data,
+      let params = {}
+      // 单级表头
+      if (this.form.headerType == 0) {
+        params = {
+          header: ['编号', '名字', '地址', '时间'],
           filename: this.form.filename,
           autoWidth: this.form.autoWidth,
-          bookType: this.form.bookType
-        })
+          bookType: this.form.bookType,
+          data
+        }
+      // 多级表头
+      } else if (this.form.headerType == 1) {
+        params = {
+          multiHeader: [['编号', '主要信息', '', '时间']],
+          merges: ['A1:A2', 'B1:C1', 'D1:D2'],
+          header: ['', '名字', '地址', ''],
+          filename: this.form.filename,
+          autoWidth: this.form.autoWidth,
+          bookType: this.form.bookType,
+          data
+        }
+      }
+
+      if (this.form.bookType != 'xlsx') {
+        delete params.autoWidth
+      }
+
+      console.log(params)
+
+      import('@/vendor/Export2Excel').then((excel) => {
+        excel.export_json_to_excel(params)
         this.downloadLoading = false
       })
     },
     formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => v[j]))
+      return jsonData.map((v) => filterVal.map((j) => v[j]))
     }
   }
 }
