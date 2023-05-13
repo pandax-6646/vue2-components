@@ -51,7 +51,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'el-icon-user' }
+      meta: { title: '首页', icon: 'dashboard' }
     }]
   },
 
@@ -61,7 +61,7 @@ export const constantRoutes = [
     name: 'Select',
     component: Layout,
     redirect: '/select/uniconditionalQuery',
-    meta: { title: '选择器', icon: 'el-icon-s-operation' },
+    meta: { title: '选择器', icon: 'nested' },
     children: [
       {
         path: 'uniconditionalQuery',
@@ -114,7 +114,7 @@ export const constantRoutes = [
     name: 'Table',
     component: Layout,
     redirect: '/table/searchTable',
-    meta: { title: '表格', icon: 'el-icon-document' },
+    meta: { title: '表格', icon: 'table' },
     children: [
       {
         path: 'searchTable',
@@ -148,7 +148,7 @@ export const constantRoutes = [
     path: '/editor',
     name: 'Editor',
     component: Layout,
-    meta: { title: '编辑器', icon: 'el-icon-edit-outline' },
+    meta: { title: '编辑器', icon: 'edit-file' },
     redirect: '/editor/richTextEditor',
     children: [
       {
@@ -192,7 +192,7 @@ export const constantRoutes = [
     path: '/file',
     name: 'avatar',
     component: Layout,
-    meta: { title: '文件操作', icon: 'el-icon-folder-opened' },
+    meta: { title: '文件操作', icon: 'file' },
     redirect: '/file/tableToExcel',
     children: [
       {
@@ -240,7 +240,7 @@ export const constantRoutes = [
     name: 'ComponentsDemo',
     component: Layout,
     redirect: '/componentsDemo/count-to',
-    meta: { title: '小功能组件', icon: 'el-icon-s-operation' },
+    meta: { title: '小功能组件', icon: 'component' },
     children: [
       {
         path: 'clipboard',
