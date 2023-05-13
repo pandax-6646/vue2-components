@@ -4,7 +4,7 @@
       <el-col :span="24">
         <el-form ref="form" :model="form" label-width="130px" label-position="left">
           <el-col :span="12">
-            <el-form-item label="表头类型">
+            <el-form-item label="表头类型" v-if="form.bookType != 'zip'">
               <el-radio-group v-model="form.headerType">
                 <el-radio label="0">单级表头</el-radio>
                 <el-radio label="1">多级表头</el-radio>
@@ -79,7 +79,7 @@ export default {
       tableData: null,
       tableLoading: true,
       form: { headerType: '0', bookType: 'xlsx', autoWidth: true },
-      options: ['xlsx', 'csv', 'txt'],
+      options: ['xlsx', 'csv', 'txt', 'zip'],
       downloadLoading: false,
       multipleSelection: [] // 选中的数据
     }
@@ -111,9 +111,13 @@ export default {
         this.tableLoading = false
       })
     },
+
+    // 选中的数据
     handleSelectionChange(rows) {
       this.multipleSelection = rows
     },
+
+    // 导出函数
     handleDownload() {
       if (!this.multipleSelection.length && !this.tableData.length) {
         this.$message.error('没有可导出的数据')
@@ -150,14 +154,29 @@ export default {
         }
       }
 
-      if (this.form.bookType != 'xlsx') {
-        delete params.autoWidth
-      }
+      // 非zip文件导出
+      if (this.form.bookType != 'zip') {
+        // 非 xlsx 格式的文件无法设置自动宽度
+        if (this.form.bookType != 'xlsx') {
+          delete params.autoWidth
+        }
 
-      import('@/vendor/Export2Excel').then((excel) => {
-        excel.export_json_to_excel(params)
-        this.downloadLoading = false
-      })
+        import('@/vendor/Export2Excel').then((excel) => {
+          excel.export_json_to_excel(params)
+          this.downloadLoading = false
+        })
+        // zip文件导出，解析出的是文本类型文件
+      } else {
+        import('@/vendor/Export2Zip').then((zip) => {
+          zip.export_txt_to_zip(
+            ['编号', '名字', '地址', '时间'],
+            data,
+            this.form.filename,
+            this.form.filename
+          )
+          this.downloadLoading = false
+        })
+      }
     },
     formatJson(filterVal, jsonData) {
       return jsonData.map((v) => filterVal.map((j) => v[j]))
@@ -165,6 +184,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-</style>

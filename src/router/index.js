@@ -198,13 +198,13 @@ export const constantRoutes = [
         path: 'tableToExcel',
         name: 'TableToExcel',
         component: () => import('@/views/file/tableToExcel/index'),
-        meta: { title: 'table 导出 Excel' }
+        meta: { title: '导出 table' }
       },
       {
         path: 'domToExcel',
         name: 'DOMToExcel',
         component: () => import('@/views/file/DOMToExcel/index'),
-        meta: { title: 'DOM 元素导出 Excel' }
+        meta: { title: 'DOM 元素导出 PDF' }
       },
       {
         path: 'parseExcel',
