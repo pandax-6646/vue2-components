@@ -55,6 +55,7 @@ export const constantRoutes = [
     }]
   },
 
+  /* 选择器 */
   {
     path: '/select',
     name: 'Select',
@@ -229,6 +230,53 @@ export const constantRoutes = [
         name: 'ViewFile',
         component: () => import('@/views/file/viewFile/index'),
         meta: { title: '预览文件' }
+      }
+    ]
+  },
+
+  /* 小功能组件 */
+  {
+    path: '/componentsDemo',
+    name: 'ComponentsDemo',
+    component: Layout,
+    redirect: '/componentsDemo/count-to',
+    meta: { title: '小功能组件', icon: 'el-icon-s-operation' },
+    children: [
+      {
+        path: 'clipboard',
+        component: () => import('@/views/componentsDemo/clipboard'),
+        name: 'ClipboardDemo',
+        meta: { title: '复制文本' }
+      },
+      {
+        path: 'count-to',
+        component: () => import('@/views/componentsDemo/count-to'),
+        name: 'CountToDemo',
+        meta: { title: '数字滚动' }
+      },
+      {
+        path: 'back-to-top',
+        component: () => import('@/views/componentsDemo/back-to-top'),
+        name: 'BackToTopDemo',
+        meta: { title: '返回顶部' }
+      },
+      {
+        path: 'drag-dialog',
+        component: () => import('@/views/componentsDemo/drag-dialog'),
+        name: 'DragDialogDemo',
+        meta: { title: '可拖拽弹窗' }
+      },
+      {
+        path: 'drag-list',
+        component: () => import('@/views/componentsDemo/drag-list'),
+        name: 'DragKanbanDemo',
+        meta: { title: '可拖拽列表' }
+      },
+      {
+        path: 'icons',
+        component: () => import('@/views/componentsDemo/icons'),
+        name: 'Icons',
+        meta: { title: '图标', noCache: true }
       }
     ]
   },
