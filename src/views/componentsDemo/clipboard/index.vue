@@ -9,7 +9,7 @@
         />
         <el-button type="primary" icon="el-icon-document" @click="handleCopy(inputData,$event)">复制</el-button>
       </el-tab-pane>
-      <el-tab-pane label="使用 v-directive" name="v-directive">
+      <el-tab-pane label="使用自定义命令" name="v-directive">
         <el-input
           v-model="inputData"
           placeholder="请输入需要复制的文本"
@@ -28,13 +28,9 @@
 
 <script>
 import clip from '@/utils/clipboard'
-import clipboard from '@/directive/clipboard/index.js'
 
 export default {
   name: 'Clipboard',
-  directives: {
-    clipboard
-  },
   data() {
     return {
       activeName: 'directly',
