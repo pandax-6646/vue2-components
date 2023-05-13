@@ -13,9 +13,8 @@
             <el-form-item label="文件名称">
               <el-input
                 v-model="form.filename"
-                placeholder="请输入导出文件的名称"
-                prefix-icon="el-icon-document"
-                style="width: 250px;"
+                placeholder="请输入导出文件的名称，默认excel-list"
+                style="width: 300px;"
               />
             </el-form-item>
             <el-form-item label="文件格式">
@@ -154,8 +153,6 @@ export default {
       if (this.form.bookType != 'xlsx') {
         delete params.autoWidth
       }
-
-      console.log(params)
 
       import('@/vendor/Export2Excel').then((excel) => {
         excel.export_json_to_excel(params)

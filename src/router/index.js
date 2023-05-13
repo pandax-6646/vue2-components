@@ -122,6 +122,12 @@ export const constantRoutes = [
         meta: { title: '查询 table' }
       },
       {
+        path: 'mergeTable',
+        name: 'MergeTable',
+        component: () => import('@/views/table/mergeTable/index'),
+        meta: { title: '合并 table' }
+      },
+      {
         path: 'treeTable',
         name: 'sreeTable',
         component: () => import('@/views/table/treeTable/index'),
