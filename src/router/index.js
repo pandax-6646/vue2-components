@@ -201,17 +201,18 @@ export const constantRoutes = [
         component: () => import('@/views/file/tableToExcel/index'),
         meta: { title: '导出 table' }
       },
-      {
-        path: 'domToExcel',
-        name: 'DOMToExcel',
-        component: () => import('@/views/file/DOMToExcel/index'),
-        meta: { title: 'DOM 元素导出 PDF' }
-      },
+      
       {
         path: 'parseExcel',
         name: 'ParseExcel',
         component: () => import('@/views/file/parseExcel/index'),
         meta: { title: '解析 Excel' }
+      },
+      {
+        path: 'domToPdf',
+        name: 'DOMToPdf',
+        component: () => import('@/views/file/DOMToPdf/index'),
+        meta: { title: 'DOM 元素导出 PDF' },
       },
       {
         path: 'uploadFile',
@@ -232,6 +233,14 @@ export const constantRoutes = [
         meta: { title: '预览文件' }
       }
     ]
+  },
+
+  /* 下载pdf */
+  {
+    path: '/file/domToPdf/downloadPdf',
+    name: 'DownloadPdf',
+    component: () => import('@/views/file/DOMToPdf/download'),
+    hidden: true
   },
 
   /* 小功能组件 */
