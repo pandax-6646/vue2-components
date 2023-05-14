@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div style="display: flex; justify-content: space-around;margin-top: 30px;">
-      <router-link target="_blank" to="/file/DomToExcel/downloadPdf">
+      <router-link target="_blank" to="/file/DomToPdf/downloadPdf">
         <el-button type="primary">跳转到新页面使用 window.print()导出PDF</el-button>
       </router-link>
 
