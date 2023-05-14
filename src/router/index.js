@@ -277,6 +277,12 @@ export const constantRoutes = [
         component: () => import('@/views/componentsDemo/icons'),
         name: 'Icons',
         meta: { title: '图标', noCache: true }
+      },
+      {
+        path: 'echarts',
+        component: () => import('@/views/componentsDemo/echarts'),
+        name: 'Echarts',
+        meta: { title: '数据图' }
       }
     ]
   },
