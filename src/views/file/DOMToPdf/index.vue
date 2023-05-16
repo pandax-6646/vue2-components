@@ -8,7 +8,7 @@
       <el-button style="margin-left: 30px;" type="primary" @click="dowloadHandle">使用依赖导出PDF</el-button>
     </div>
 
-    <div class="main-article">
+    <div class="main-article" id="pdfDom">
       <div class="article__heading">
         <div class="article__heading__title">{{ article.title }}</div>
       </div>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { getPdf } from '@/utils/htmlToPDF'
 export default {
   name: 'DOMToPdf',
   data() {
@@ -44,8 +45,17 @@ export default {
     },
 
     // 使用依赖的方式下载
+    // 如果内容过多有分页会造成文本或图片内容被分割
+    // https://www.cnblogs.com/deng-jie/p/15983698.html
+    // jianshu.com/p/257513ab0717
     dowloadHandle() {
-      console.log('asd')
+      this.fullscreenLoading = true
+      setTimeout(() => {
+        const pdfDom = document.getElementById('pdfDom')
+        getPdf(pdfDom, this.article.title).then(() => {
+          this.fullscreenLoading = false
+        })
+      }, 300)
     }
   }
 }
