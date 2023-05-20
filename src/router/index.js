@@ -215,22 +215,16 @@ export const constantRoutes = [
         meta: { title: 'DOM 元素导出 PDF' },
       },
       {
-        path: 'uploadFile',
-        name: 'UploadFile',
-        component: () => import('@/views/file/uploadFile/index'),
-        meta: { title: '上传文件' }
-      },
-      {
         path: 'uploadAvatar',
         name: 'UploadAvatar',
         component: () => import('@/views/file/uploadAvatar/index'),
         meta: { title: '上传头像' }
       },
       {
-        path: 'viewFile',
-        name: 'ViewFile',
-        component: () => import('@/views/file/viewFile/index'),
-        meta: { title: '预览文件' }
+        path: 'viewPdf',
+        name: 'ViewPdf',
+        component: () => import('@/views/file/viewPdf/index'),
+        meta: { title: '预览Pdf' }
       }
     ]
   },
