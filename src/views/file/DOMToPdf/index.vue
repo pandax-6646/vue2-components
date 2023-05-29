@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { getPdf } from '@/utils/htmlToPDF'
+import  PdfLoader from '@/utils/exportPdf'
 export default {
   name: 'DOMToPdf',
   data() {
@@ -52,9 +52,13 @@ export default {
       this.fullscreenLoading = true
       setTimeout(() => {
         const pdfDom = document.getElementById('pdfDom')
-        getPdf(pdfDom, this.article.title).then(() => {
-          this.fullscreenLoading = false
+        const pdfLoader = new PdfLoader(pdfDom, this.article.title, 'itemClass')
+        pdfLoader.outPutPdfFn().then(res => {
+          console.log('导出成功')
         })
+        // getPdf(pdfDom, this.article.title).then(() => {
+        //   this.fullscreenLoading = false
+        // })
       }, 300)
     }
   }
