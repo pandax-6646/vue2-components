@@ -64,6 +64,12 @@ export const constantRoutes = [
     meta: { title: '选择器', icon: 'nested' },
     children: [
       {
+        path: 'linkageSelection',
+        name: 'LinkageSelection',
+        component: () => import('@/views/select/linkageSelection'),
+        meta: { title: '联动选择' },
+      },
+      {
         path: 'uniconditionalQuery',
         name: 'UniconditionalQuery',
         component: () => import('@/views/select/uniconditionalQuery'),
