@@ -32,7 +32,6 @@
           row-key="id"
           ref="multipleTable"
           :data="tableData"
-          @row-click="clickRowHandle"
         >
           <el-table-column>
             <template slot-scope="scope">
@@ -162,11 +161,6 @@ export default {
     submitHandle(row) {
       this.$emit('select', row)
       this.closeHandle()
-    },
-
-    // 点击行被选中
-    clickRowHandle(row) {
-      this.submitHandle(row)
     },
 
     // 关闭弹窗
