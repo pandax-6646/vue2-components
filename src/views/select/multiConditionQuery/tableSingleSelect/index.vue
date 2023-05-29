@@ -9,7 +9,7 @@
       </el-col>
       <el-col :span="24">
         <el-form-item label="选中的数据：">
-          <el-table border row-key="id" ref="multipleTable" :data="getSelectRows">
+          <el-table ref="multipleTable" border row-key="id" :data="getSelectRows">
             <el-table-column prop="date" label="日期">
               <template slot-scope="{row}">
                 <div>{{ row.date }} = {{ row.id }}</div>
@@ -21,7 +21,7 @@
         </el-form-item>
       </el-col>
     </el-form>
-    <table-dialog ref="tableDialog" @select="select" :selectedRow="selectedRow" />
+    <table-dialog ref="tableDialog" :selected-row="selectedRow" @select="select" />
   </div>
 </template>
 

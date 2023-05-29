@@ -14,7 +14,7 @@
 import ProjectEdit from './components/ProjectEdit'
 import ProjectView from './components/ProjectView'
 export default {
-  name: 'profiledTable',
+  name: 'ProfiledTable',
   components: {
     ProjectEdit,
     ProjectView
@@ -37,7 +37,7 @@ export default {
     },
 
     async handleSubmit() {
-      let params = await this.$refs.projectEdit.validateProjectForm()
+      const params = await this.$refs.projectEdit.validateProjectForm()
       this.$refs.projectView.setData(params)
     }
   }

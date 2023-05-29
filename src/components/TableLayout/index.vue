@@ -12,7 +12,7 @@
           <template slot="title">
             <span class="collapse-title">{{ title }}</span>
             <div class="table-screen-btn">
-              <slot name="header" v-if="!hideSearch">
+              <slot v-if="!hideSearch" name="header">
                 <!--     插槽可自定义内容，覆盖掉默认内容       -->
                 <el-button size="small" type="primary" @click.stop="screenHandle">查询</el-button>
                 <el-button size="small" @click.stop="resetHandle">重置</el-button>

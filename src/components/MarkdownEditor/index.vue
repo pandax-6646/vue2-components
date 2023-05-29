@@ -67,7 +67,7 @@ export default {
         }
       })
     },
-    
+
     editorLoad(editor) {
       this.$emit('editorLoad', editor)
     },

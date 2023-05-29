@@ -1,7 +1,7 @@
 <template>
   <el-dialog title="选择" top="6vh" :visible.sync="dialogVisible" width="50%">
     <table-layout
-      hideBreadcrumb
+      hide-breadcrumb
       :pagination-total="pageParams.total"
       :page-size="pageParams.limit"
       :current-page="pageParams.page"
@@ -27,7 +27,7 @@
         </el-form>
       </template>
       <template v-slot:table>
-        <el-table border row-key="id" ref="multipleTable" :data="tableData" @select="handleSelect">
+        <el-table ref="multipleTable" border row-key="id" :data="tableData" @select="handleSelect">
           <el-table-column type="selection" width="50" />
           <el-table-column prop="date" label="日期">
             <template slot-scope="{row}">

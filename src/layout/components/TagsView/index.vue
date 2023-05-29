@@ -30,7 +30,7 @@ import ScrollPane from './ScrollPane'
 import path from 'path'
 
 export default {
-  name: "TagsView",
+  name: 'TagsView',
   components: { ScrollPane },
   data() {
     return {

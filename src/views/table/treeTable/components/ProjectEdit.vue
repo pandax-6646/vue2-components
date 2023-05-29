@@ -32,10 +32,10 @@
                               :rules="formData.rules.itemName"
                             >
                               <el-input
+                                v-model="projectScope.row.itemName"
                                 :disabled="isDetails"
                                 clearable
                                 placeholder="请输入检测项目/要求"
-                                v-model="projectScope.row.itemName"
                                 size="mini"
                               />
                             </el-form-item>
@@ -50,8 +50,8 @@
                               :rules="formData.rules.useTime"
                             >
                               <el-input-number
-                                :disabled="isDetails"
                                 v-model="projectScope.row.useTime"
+                                :disabled="isDetails"
                                 size="mini"
                                 :precision="2"
                                 style="width: 100%"
@@ -72,8 +72,8 @@
                               :rules="formData.rules.itemAmount"
                             >
                               <el-input-number
-                                :disabled="isDetails"
                                 v-model="projectScope.row.itemAmount"
+                                :disabled="isDetails"
                                 size="mini"
                                 :precision="2"
                                 placeholder="请输入服务金额"
@@ -89,8 +89,8 @@
                       <el-table-column label align="right">
                         <template slot-scope="projectScope">
                           <el-button
-                            type="text"
                             v-if="!isDetails"
+                            type="text"
                             @click="handleDelProject(orderScope.row.id,deviceScope.row.id,projectScope.row.id, orderScope.$index)"
                           >删除</el-button>
                         </template>
@@ -110,8 +110,8 @@
                           @click="chooseDevice(orderScope.row.id,deviceScope.row,formData.data[orderScope.$index].device[deviceScope.$index].id,orderScope.$index)"
                         >
                           <el-input
-                            :disabled="isDetails"
                             v-model="deviceScope.row.instrumentName"
+                            :disabled="isDetails"
                             size="mini"
                           />
                         </div>
@@ -122,13 +122,13 @@
                 <el-table-column align="right">
                   <template slot-scope="deviceScope">
                     <el-button
-                      type="text"
                       v-if="!isDetails"
+                      type="text"
                       @click="handleAddProject( orderScope.row,orderScope.row.id,deviceScope.row.id)"
                     >添加项目</el-button>
                     <el-button
-                      type="text"
                       v-if="!isDetails"
+                      type="text"
                       @click="handleDelDevice(orderScope.row.id,deviceScope.row.id, orderScope.$index)"
                     >删除</el-button>
                   </template>
@@ -146,10 +146,10 @@
                 :rules="formData.rules.specimenName"
               >
                 <el-input
+                  v-model="orderScope.row.specimenName"
                   :disabled="isDetails"
                   placeholder="请输入样品名称"
                   clearable
-                  v-model="orderScope.row.specimenName"
                   size="mini"
                 />
               </el-form-item>
@@ -164,10 +164,10 @@
                 :rules="formData.rules.specimenNum"
               >
                 <el-input
+                  v-model="orderScope.row.specimenNum"
                   clearable
                   :disabled="isDetails"
                   placeholder="请输入样品编号"
-                  v-model="orderScope.row.specimenNum"
                   size="mini"
                 />
               </el-form-item>
@@ -182,8 +182,8 @@
                 :rules="formData.rules.specimenTime"
               >
                 <el-date-picker
-                  :disabled="isDetails"
                   v-model="orderScope.row.specimenTime"
+                  :disabled="isDetails"
                   type="date"
                   clearable
                   value-format="yyyy-MM-dd"
@@ -203,10 +203,10 @@
                 :rules="formData.rules.price"
               >
                 <el-input-number
+                  v-model="orderScope.row.price"
                   :disabled="isDetails"
                   style="width: 100%"
                   :precision="2"
-                  v-model="orderScope.row.price"
                   placeholder="请输入单价"
                   :min="0"
                   :max="999999999"
@@ -224,12 +224,12 @@
                 :rules="formData.rules.specimenQuantity"
               >
                 <el-input-number
+                  v-model="orderScope.row.specimenQuantity"
                   :disabled="isDetails"
                   style="width: 100%"
                   :step="1"
                   step-strictly
                   placeholder="请输入数量"
-                  v-model="orderScope.row.specimenQuantity"
                   :min="0"
                   :max="999999999"
                   size="mini"
@@ -240,22 +240,22 @@
         </el-table-column>
         <el-table-column label="使用总时长(时)" align="center" width="80">
           <template slot-scope="scope">
-            <div style="color: red">{{scope.row.totalUseTime}}</div>
+            <div style="color: red">{{ scope.row.totalUseTime }}</div>
           </template>
         </el-table-column>
         <el-table-column label="服务总金额(元)" align="center" width="80">
           <template slot-scope="scope">
-            <div style="color: red">{{scope.row.totalServiceAmount}}</div>
+            <div style="color: red">{{ scope.row.totalServiceAmount }}</div>
           </template>
         </el-table-column>
         <el-table-column label="操作" prop="desc" align="center" width="130">
           <template slot-scope="orderScope">
             <el-button
-              type="text"
               v-if="!isDetails"
+              type="text"
               @click="chooseDevice(orderScope.row.id,orderScope.row,'add',orderScope.$index)"
             >选择仪器</el-button>
-            <el-button type="text" v-if="!isDetails" @click="handleDelSample(orderScope.row.id)">删除</el-button>
+            <el-button v-if="!isDetails" type="text" @click="handleDelSample(orderScope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -406,9 +406,9 @@ export default {
       this.expandSecondKeys = [device]
     },
 
-    //使用时长
+    // 使用时长
     serviceUseTimeHandle(index) {
-      let dataList = this.formData.data.map((item) => {
+      const dataList = this.formData.data.map((item) => {
         if (item.device) {
           return {
             ...item,
@@ -433,9 +433,9 @@ export default {
       }
     },
 
-    //服务金额
+    // 服务金额
     serviceAmountHandle(index) {
-      let dataList = this.formData.data.map((item) => {
+      const dataList = this.formData.data.map((item) => {
         if (item.device) {
           return {
             ...item,

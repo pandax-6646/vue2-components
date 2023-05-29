@@ -9,7 +9,7 @@ import { saveAs } from 'file-saver'
  * @param {*} pdfTitle pdf的title
  * 另：这里可以更改背景色，其他的样式设置 以 元素的css为准
  */
-export const getPdf = async (element, pdfTitle, param = {}) => {
+export const getPdf = async(element, pdfTitle, param = {}) => {
   if (param.type && param.type === 'zip') {
     const zip = new JSZip()
     const imgs = []

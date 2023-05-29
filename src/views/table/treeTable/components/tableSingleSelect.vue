@@ -1,7 +1,7 @@
 <template>
   <el-dialog title="选择" top="6vh" :visible.sync="dialogVisible" width="50%">
     <table-layout
-      hideBreadcrumb
+      hide-breadcrumb
       :pagination-total="pageParams.total"
       :page-size="pageParams.limit"
       :current-page="pageParams.page"
@@ -27,7 +27,7 @@
         </el-form>
       </template>
       <template v-slot:table>
-        <el-table border row-key="id" ref="multipleTable" :data="tableData">
+        <el-table ref="multipleTable" border row-key="id" :data="tableData">
           <el-table-column>
             <template slot-scope="scope">
               <el-radio

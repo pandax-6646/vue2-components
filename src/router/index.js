@@ -67,7 +67,7 @@ export const constantRoutes = [
         path: 'linkageSelection',
         name: 'LinkageSelection',
         component: () => import('@/views/select/linkageSelection'),
-        meta: { title: '联动选择' },
+        meta: { title: '联动选择' }
       },
       {
         path: 'uniconditionalQuery',
@@ -108,7 +108,7 @@ export const constantRoutes = [
             name: 'TableMultipleSelect',
             component: () => import('@/views/select/multiConditionQuery/tableMultipleSelect/index'),
             meta: { title: '弹窗 table 多选' }
-          },
+          }
         ]
       }
     ]
@@ -175,7 +175,7 @@ export const constantRoutes = [
             name: 'Tinymce',
             component: () => import('@/views/editor/richTextEditor/tinymce/index'),
             meta: { title: 'tinymce' }
-          },
+          }
         ]
       },
       {
@@ -207,7 +207,7 @@ export const constantRoutes = [
         component: () => import('@/views/file/tableToExcel/index'),
         meta: { title: '导出 table' }
       },
-      
+
       {
         path: 'parseExcel',
         name: 'ParseExcel',
@@ -218,7 +218,7 @@ export const constantRoutes = [
         path: 'domToPdf',
         name: 'DOMToPdf',
         component: () => import('@/views/file/DOMToPdf/index'),
-        meta: { title: 'DOM 元素导出 PDF' },
+        meta: { title: 'DOM 元素导出 PDF' }
       },
       {
         path: 'uploadAvatar',

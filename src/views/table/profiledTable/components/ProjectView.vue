@@ -11,24 +11,24 @@
       <el-table-column label="一级指标">
         <template slot-scope="{ row }">
           <div
-            style="margin-left: 5px;"
             v-if="row.isShowTitle"
+            style="margin-left: 5px;"
           >{{ `- ${row.psiName}（${row.psiScore}分）` }}</div>
         </template>
       </el-table-column>
       <el-table-column label="二级指标" width="350">
         <template slot-scope="{ row }">
-          <div>{{`${row.psiName}（${row.psiScore}分）`}}</div>
+          <div>{{ `${row.psiName}（${row.psiScore}分）` }}</div>
         </template>
       </el-table-column>
       <el-table-column label="分数">
         <template slot-scope="{ row }">
-          <div>{{row.pasiScore}}</div>
+          <div>{{ row.pasiScore }}</div>
         </template>
       </el-table-column>
       <el-table-column label="意见">
         <template slot-scope="{ row }">
-          <div>{{row.auditRemark}}</div>
+          <div>{{ row.auditRemark }}</div>
         </template>
       </el-table-column>
     </el-table>

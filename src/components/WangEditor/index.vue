@@ -1,7 +1,7 @@
 <template>
   <div class="editor-container">
-    <div class="editor-box" ref="editor" />
-    <div class="desc">{{currLength}} / {{maxLength}}</div>
+    <div ref="editor" class="editor-box" />
+    <div class="desc">{{ currLength }} / {{ maxLength }}</div>
   </div>
 </template>
 

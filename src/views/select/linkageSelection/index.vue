@@ -1,17 +1,15 @@
 <template>
-  <div class="">
-     
-  </div>
+  <div class="" />
 </template>
 
 <script>
 export default {
-  name: 'index',
-  data () {
+  name: 'Index',
+  data() {
     return {
-      
+
     }
-  },
+  }
 }
 </script>
 

@@ -20,7 +20,7 @@
       </el-col>
       <el-col :span="24">
         <el-form-item label="选中的数据：">
-          <el-table border row-key="id" ref="multipleTable" :data="selectedRows">
+          <el-table ref="multipleTable" border row-key="id" :data="selectedRows">
             <el-table-column prop="date" label="日期">
               <template slot-scope="{row}">
                 <div>{{ row.date }} = {{ row.id }}</div>
@@ -32,7 +32,7 @@
         </el-form-item>
       </el-col>
     </el-form>
-    <table-dialog ref="tableDialog" @select="select" :maxAllowedNumber="maxAllowedNumber" />
+    <table-dialog ref="tableDialog" :max-allowed-number="maxAllowedNumber" @select="select" />
   </div>
 </template>
 
@@ -40,6 +40,9 @@
 import TableDialog from './components/TableDialog'
 export default {
   name: 'TableMultipleSelect',
+  components: {
+    TableDialog
+  },
   data() {
     return {
       // 最多可选
@@ -48,9 +51,6 @@ export default {
       // 选中回显数据
       selectedRows: []
     }
-  },
-  components: {
-    TableDialog
   },
   methods: {
     showDialog() {

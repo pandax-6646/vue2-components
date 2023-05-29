@@ -4,7 +4,7 @@
       <el-col :span="24">
         <el-form ref="form" :model="form" label-width="130px" label-position="left">
           <el-col :span="12">
-            <el-form-item label="表头类型" v-if="form.bookType != 'zip'">
+            <el-form-item v-if="form.bookType != 'zip'" label="表头类型">
               <el-radio-group v-model="form.headerType">
                 <el-radio label="0">单级表头</el-radio>
                 <el-radio label="1">多级表头</el-radio>
@@ -22,7 +22,7 @@
                 <el-option v-for="item in options" :key="item" :label="item" :value="item" />
               </el-select>
             </el-form-item>
-            <el-form-item label="单元格宽度自适应" v-if="form.bookType == 'xlsx'">
+            <el-form-item v-if="form.bookType == 'xlsx'" label="单元格宽度自适应">
               <el-radio-group v-model="form.autoWidth">
                 <el-radio :label="true">是</el-radio>
                 <el-radio :label="false">否</el-radio>
@@ -40,7 +40,7 @@
           </el-col>
         </el-form>
       </el-col>
-      <el-col :span="24" v-show="form.headerType == 0">
+      <el-col v-show="form.headerType == 0" :span="24">
         <el-table
           v-loading="tableLoading"
           :data="tableData"
@@ -56,7 +56,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="24" v-show="form.headerType == 1">
+      <el-col v-show="form.headerType == 1" :span="24">
         <el-table ref="multipleTable" v-loading="tableLoading" :data="tableData" border>
           <el-table-column label="编号" prop="id" align="center" width="95" />
           <el-table-column label="主要信息" align="center">

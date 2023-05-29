@@ -12,7 +12,7 @@
                   <el-table-column label="序号" type="index" width="50" align="center" />
                   <el-table-column label="检测项目/要求">
                     <template slot-scope="projectScope">
-                      <div class="td-cell">{{projectScope.row.itemName}}</div>
+                      <div class="td-cell">{{ projectScope.row.itemName }}</div>
                     </template>
                   </el-table-column>
                   <el-table-column label="使用时长(时)" prop="useTime" align="center" />
@@ -34,12 +34,12 @@
     <el-table-column label="数量" align="center" prop="specimenQuantity" />
     <el-table-column label="使用总时长(时)" align="center">
       <template slot-scope="orderScope">
-        <div style="color: red">{{orderScope.row.totalUseTime}}</div>
+        <div style="color: red">{{ orderScope.row.totalUseTime }}</div>
       </template>
     </el-table-column>
     <el-table-column label="服务总金额(元)" align="center">
       <template slot-scope="orderScope">
-        <div style="color: red">{{orderScope.row.totalServiceAmount}}</div>
+        <div style="color: red">{{ orderScope.row.totalServiceAmount }}</div>
       </template>
     </el-table-column>
   </el-table>

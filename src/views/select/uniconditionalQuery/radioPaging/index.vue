@@ -4,9 +4,9 @@
       v-model="selectIds"
       :placeholder="placeholder"
       :loading="loading"
+      style="width: 500px"
       @loadMore="loadMore"
       @remoteMethod="remoteMethod"
-      style="width: 500px"
     >
       <el-option
         v-for="item in remoteOptions"

@@ -15,34 +15,34 @@
     <div style="margin-left: 25%;margin-top: 40px;">
       <label class="label" for="startValInput">
         初始值:
-        <input v-model.number="setStartVal" type="number" name="startValInput" />
+        <input v-model.number="setStartVal" type="number" name="startValInput">
       </label>
       <label class="label" for="endValInput">
         结束值:
-        <input v-model.number="setEndVal" type="number" name="endVaInput" />
+        <input v-model.number="setEndVal" type="number" name="endVaInput">
       </label>
       <label class="label" for="durationInput">
         滚动时间:
-        <input v-model.number="setDuration" type="number" name="durationInput" />
+        <input v-model.number="setDuration" type="number" name="durationInput">
       </label>
       <div class="startBtn example-btn" @click="start">开始</div>
       <div class="pause-resume-btn example-btn" @click="pauseResume">暂停/继续</div>
-      <br />
+      <br>
       <label class="label" for="decimalsInput">
         保留小数位:
-        <input v-model.number="setDecimals" type="number" name="decimalsInput" />
+        <input v-model.number="setDecimals" type="number" name="decimalsInput">
       </label>
       <label class="label" for="separatorInput">
         数字分割符:
-        <input v-model="setSeparator" name="separatorInput" />
+        <input v-model="setSeparator" name="separatorInput">
       </label>
       <label class="label" for="prefixInput">
         前缀:
-        <input v-model="setPrefix" name="prefixInput" />
+        <input v-model="setPrefix" name="prefixInput">
       </label>
       <label class="label" for="suffixInput">
         后缀:
-        <input v-model="setSuffix" name="suffixInput" />
+        <input v-model="setSuffix" name="suffixInput">
       </label>
     </div>
     <aside style="text-align: center; margin-top: 20px;">

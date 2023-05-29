@@ -1,6 +1,6 @@
 <template>
   <div class="wangeditor-container">
-    <wang-editor @changeHtml="editorChange" ref="wangeditor" />
+    <wang-editor ref="wangeditor" @changeHtml="editorChange" />
     <div>
       <h4>富文本内容：</h4>
       <div style="margin-left: 20px;">{{ content }}</div>

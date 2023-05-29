@@ -11,14 +11,14 @@
       <el-table-column label="一级指标">
         <template slot-scope="{ row }">
           <div
-            style="margin-left: 5px;"
             v-if="row.isShowTitle"
+            style="margin-left: 5px;"
           >{{ `- ${row.psiName}（${row.psiScore}分）` }}</div>
         </template>
       </el-table-column>
       <el-table-column label="二级指标" width="350">
         <template slot-scope="{ row }">
-          <div>{{`${row.psiName}（${row.psiScore}分）`}}</div>
+          <div>{{ `${row.psiName}（${row.psiScore}分）` }}</div>
         </template>
       </el-table-column>
       <el-table-column label="分数" prop="psiScore">
@@ -38,9 +38,9 @@
       <el-table-column label="意见" prop="auditRemark">
         <template slot-scope="orderScope">
           <el-input
+            v-model="orderScope.row.auditRemark"
             clearable
             :placeholder="`请输入 ${orderScope.row.psiName} 意见`"
-            v-model="orderScope.row.auditRemark"
             size="mini"
           />
         </template>
@@ -170,13 +170,13 @@ export default {
       const objRemark = rows.find((item) => !item.auditRemark)
 
       if (objScore) {
-        let msg = objScore.psiName
+        const msg = objScore.psiName
         this.$message.error(`请填写${msg}的分数`)
         return false
       }
 
       if (objRemark) {
-        let msg = objRemark.psiName
+        const msg = objRemark.psiName
         this.$message.error(`请填写${msg}的意见`)
         return false
       }

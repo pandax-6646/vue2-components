@@ -6,7 +6,7 @@
       type="file"
       :accept="accept"
       @change="handleClick"
-    />
+    >
     <div class="drop" @drop="handleDrop" @dragover="handleDragover" @dragenter="handleDragover">
       <span>拖拽文件到此处或</span>
       <el-button

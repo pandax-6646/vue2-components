@@ -26,7 +26,7 @@ export default {
     // 获取数据
     fetchDate() {
       this.tableLoading = true
-      getSelectTableList({ page: 1, limit: 10, parameter: {} })
+      getSelectTableList({ page: 1, limit: 10, parameter: {}})
         .then((res) => {
           if (Number(res.code) == 200) {
             this.tableData = [
@@ -113,16 +113,16 @@ export default {
 
     // 合并行方式二（第一、二行）
     setTable(tableData) {
-      let spanOneArr = [],
-        spanTwoArr = [],
-        concatOne = 0,
-        concatTwo = 0
+      const spanOneArr = []
+      const spanTwoArr = []
+      let concatOne = 0
+      let concatTwo = 0
       tableData.forEach((item, index) => {
         if (index === 0) {
           spanOneArr.push(1)
           spanTwoArr.push(1)
         } else {
-          //第一列合并相同内容的判断条件
+          // 第一列合并相同内容的判断条件
           if (item.id.trim() === tableData[index - 1].id.trim()) {
             spanOneArr[concatOne] += 1
             spanOneArr.push(0)
@@ -131,7 +131,7 @@ export default {
             concatOne = index
           }
 
-          //第二列合并相同内容的判断条件（在第一列的合并基础上进行合并）
+          // 第二列合并相同内容的判断条件（在第一列的合并基础上进行合并）
           if (
             item.id.trim() === tableData[index - 1].id.trim() &&
             item.name.trim() === tableData[index - 1].name.trim()

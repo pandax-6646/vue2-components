@@ -1,20 +1,20 @@
 <template>
   <el-select
     v-model="selectValue"
+    v-load-more="loadmore"
     :remote-method="remoteMethod"
     :placeholder="getPlaceholder"
     :loading="loading"
     filterable
     remote
-    v-load-more="loadmore"
     clearable
-    @change="change"
     value-key="recordId"
     popper-class="_base_info_select"
     :disabled="searchKey == 'je'"
+    @change="change"
   >
-    <span slot="prefix" v-if="searchKey == 'je'">￥</span>
-    <el-option disabled :key="searchKey" :value="searchKey" v-if="options.length">
+    <span v-if="searchKey == 'je'" slot="prefix">￥</span>
+    <el-option v-if="options.length" :key="searchKey" disabled :value="searchKey">
       <span class="item" :class="searchKey == 'zcbh' ? 'red': ''">资产编号</span>
       <span class="item" :class="searchKey == 'zcmc' ? 'red': ''">仪器名称</span>
       <span class="item" :class="searchKey == 'xh' ? 'red': ''">品牌/型号</span>
@@ -81,6 +81,12 @@
 <script>
 export default {
   name: 'FormItemSearch',
+  filters: {
+    formatText(val, len = 16) {
+      if (!val) return ' '
+      return val.length > len ? `${val.slice(0, len)}...` : val
+    }
+  },
   props: {
     recordId: {
       type: String,
@@ -107,18 +113,6 @@ export default {
       keyName: '', // 查询文本
       selectValue: '', // 选中的数据,
       page: 1
-    }
-  },
-  watch: {
-    recordId(newV) {
-      const row = this.options.find((item) => item.recordId == newV)
-      this.selectValue = row && row[this.searchKey] ? newV : ''
-    }
-  },
-  filters: {
-    formatText(val, len = 16) {
-      if (!val) return ' '
-      return val.length > len ? `${val.slice(0, len)}...` : val
     }
   },
   computed: {
@@ -160,6 +154,12 @@ export default {
           break
       }
       return `请输入${placeholder}`
+    }
+  },
+  watch: {
+    recordId(newV) {
+      const row = this.options.find((item) => item.recordId == newV)
+      this.selectValue = row && row[this.searchKey] ? newV : ''
     }
   },
   methods: {

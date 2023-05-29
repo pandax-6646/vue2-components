@@ -8,7 +8,7 @@
       <el-button style="margin-left: 30px;" type="primary" @click="dowloadHandle">使用依赖导出PDF</el-button>
     </div>
 
-    <div class="main-article" id="pdfDom">
+    <div id="pdfDom" class="main-article">
       <div class="article__heading">
         <div class="article__heading__title">{{ article.title }}</div>
       </div>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import  PdfLoader from '@/utils/exportPdf'
+import PdfLoader from '@/utils/exportPdf'
 export default {
   name: 'DOMToPdf',
   data() {

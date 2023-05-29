@@ -14,9 +14,9 @@
       style="width: 100%;margin-top:20px;"
     >
       <el-table-column
-        show-overflow-tooltip
         v-for="(item, index) of tableHeader"
         :key="index"
+        show-overflow-tooltip
         :prop="item"
         :label="item"
       />

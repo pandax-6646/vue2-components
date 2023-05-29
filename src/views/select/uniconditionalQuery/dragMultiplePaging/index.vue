@@ -1,14 +1,14 @@
 <template>
   <div class="paging-select-container">
     <drag-paging-select
-      :dragValue="true"
       v-model="selectIds"
+      :drag-value="true"
       :placeholder="placeholder"
       :loading="loading"
       :multiple="true"
+      style="width: 500px"
       @loadMore="loadMore"
       @remoteMethod="remoteMethod"
-      style="width: 500px"
     >
       <el-option
         v-for="item in remoteOptions"

@@ -16,7 +16,7 @@
       <p style="color: #5e5e5e">点击下面的数据展示美化视图</p>
       <el-popover placement="top" trigger="click">
         <pre class="handleLog-pre" v-html="viewData" />
-        <div class="record-text" ref="recordText" slot="reference" v-html="viewData" />
+        <div ref="recordText" slot="reference" class="record-text" v-html="viewData" />
       </el-popover>
     </div>
   </div>
@@ -25,7 +25,7 @@
 <script>
 import JsonEditor from '@/components/JsonEditor'
 
-let initJsonData =
+const initJsonData =
   '[{"items":[{"market_type":"forexdata","symbol":"XAUUSD"},{"market_type":"forexdata","symbol":"UKOIL"},{"market_type":"forexdata","symbol":"CORN"}],"name":""},{"items":[{"market_type":"forexdata","symbol":"XAUUSD"},{"market_type":"forexdata","symbol":"XAGUSD"},{"market_type":"forexdata","symbol":"AUTD"},{"market_type":"forexdata","symbol":"AGTD"}],"name":"贵金属"},{"items":[{"market_type":"forexdata","symbol":"CORN"},{"market_type":"forexdata","symbol":"WHEAT"},{"market_type":"forexdata","symbol":"SOYBEAN"},{"market_type":"forexdata","symbol":"SUGAR"}],"name":"农产品"},{"items":[{"market_type":"forexdata","symbol":"UKOIL"},{"market_type":"forexdata","symbol":"USOIL"},{"market_type":"forexdata","symbol":"NGAS"}],"name":"能源化工"}]'
 
 export default {
@@ -78,7 +78,7 @@ export default {
       json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>')
       return json.replace(
         /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
-        function (match) {
+        function(match) {
           var cls = 'jsonnumber'
           if (/^"/.test(match)) {
             if (/:$/.test(match)) {
@@ -143,5 +143,4 @@ export default {
   overflow-y: auto;
 }
 </style>
-
 

@@ -13,7 +13,7 @@ module.exports = {
    * @description Whether need tagsView
    */
   tagsView: true,
-  
+
   /**
    * @type {boolean} true | false
    * @description Whether show the logo in sidebar

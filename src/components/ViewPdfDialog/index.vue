@@ -1,6 +1,11 @@
 <template>
-  <el-dialog title="预览" custom-class="dialog" :visible.sync="innerVisible" :before-close="innerCloseHandle"
-    append-to-body>
+  <el-dialog
+    title="预览"
+    custom-class="dialog"
+    :visible.sync="innerVisible"
+    :before-close="innerCloseHandle"
+    append-to-body
+  >
     <template v-if="fileLoading">
       <div class="shadow">
         <i class="el-icon-loading" />
@@ -23,7 +28,7 @@ export default {
       innerVisible: false,
       previewUrl: 'https://ysa.file65.upload.ilabeco.com/group1/M00/02/4C/wKgEQWQ86kiASvUvAAV6wXVYpcE767.pdf',
       numPages: '',
-      fileLoading: false,
+      fileLoading: false
     }
   },
   methods: {

@@ -32,7 +32,7 @@ export default {
     },
     customStyle: {
       type: Object,
-      default: function () {
+      default: function() {
         return {
           right: '50px',
           bottom: '50px',

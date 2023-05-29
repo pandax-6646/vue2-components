@@ -1,15 +1,15 @@
 <template>
   <el-select
+    ref="dragSelect"
+    v-model="selectIds"
+    v-load-more="loadMore"
     remote
     clearable
     filterable
-    ref="dragSelect"
     :class="(multiple && dragValue) ? 'drag-select' : ''"
     reserve-keyword
     :loading="loading"
-    v-model="selectIds"
     :multiple="multiple"
-    v-load-more="loadMore"
     :placeholder="placeholder"
     :remote-method="remoteMethod"
   >
@@ -97,7 +97,7 @@ export default {
       background: #42b983 !important;
     }
 
-    .el-tag { 
+    .el-tag {
       cursor: pointer;
     }
   }
