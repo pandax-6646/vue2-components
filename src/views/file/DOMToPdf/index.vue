@@ -1,8 +1,8 @@
 <template>
-  <div class="app-container">
+  <div v-loading.fullscreen.lock="fullscreenLoading" class="app-container">
     <div style="display: flex; justify-content: space-around;margin-top: 30px;">
       <router-link target="_blank" to="/file/DomToPdf/downloadPdf">
-        <el-button type="primary">跳转到新页面使用 window.print()导出PDF</el-button>
+        <el-button type="primary">window.print</el-button>
       </router-link>
 
       <el-button style="margin-left: 30px;" type="primary" @click="dowloadHandle">使用依赖导出PDF</el-button>
@@ -25,33 +25,33 @@
 </template>
 
 <script>
-import {getPdfPage} from '@/utils/htmlToPDF'
+import { getPdfPage } from '@/utils/htmlToPDF'
 export default {
   name: 'DOMToPdf',
   data() {
     return {
       article: '',
-      fullscreenLoading: true
+      fullscreenLoading: false
     }
   },
   mounted() {
     this.fetchData()
   },
   methods: {
+    // 在新页面执行下载
     fetchData() {
       import('./content.js').then((data) => {
         this.article = data.default
       })
     },
 
-    // 使用依赖的方式下载
-    // 如果内容过多有分页会造成文本或图片内容被分割
-    // https://www.cnblogs.com/deng-jie/p/15983698.html
-    // jianshu.com/p/257513ab0717
+    // 直接下载，可防止文本被截断
     dowloadHandle() {
       this.fullscreenLoading = true
       getPdfPage('pdfDom', this.article.title).then(() => {
-        this.fullscreenLoading = false
+        setTimeout(() => {
+          this.fullscreenLoading = false
+        }, 300)
       })
     }
   }
