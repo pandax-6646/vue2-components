@@ -8,55 +8,27 @@
     filterable
     remote
     clearable
-    value-key="recordId"
+    value-key="id"
     popper-class="_base_info_select"
-    :disabled="searchKey == 'je'"
     @change="change"
   >
-    <span v-if="searchKey == 'je'" slot="prefix">￥</span>
+    <span v-if="searchKey == 'name'" slot="prefix">@</span>
     <el-option v-if="options.length" :key="searchKey" disabled :value="searchKey">
-      <span class="item" :class="searchKey == 'zcbh' ? 'red': ''">资产编号</span>
-      <span class="item" :class="searchKey == 'zcmc' ? 'red': ''">仪器名称</span>
-      <span class="item" :class="searchKey == 'xh' ? 'red': ''">品牌/型号</span>
-      <span class="item" :class="searchKey == 'je' ? 'red': ''">仪器原值</span>
-      <span class="item" style="width: 80px" :class="searchKey == 'sfjk' ? 'red': ''">是否进口</span>
-      <span class="item" style="width: 100px" :class="searchKey == 'syrmc' ? 'red': ''">使用人</span>
-      <span class="item" :class="searchKey == 'sydwmc' ? 'red': ''">使用部门</span>
-      <span class="item" style="width: 100px" :class="searchKey == 'glr' ? 'red': ''">资产管理员</span>
-      <span class="item" :class="searchKey == 'gzrq' ? 'red': ''">购置日期</span>
-      <span class="item" :class="searchKey == 'cfdmc' ? 'red': ''">放置地址</span>
+      <span class="item" style="width: 50px" :class="searchKey == 'id' ? 'red': ''">序号</span>
+      <span class="item" style="width: 100px" :class="searchKey == 'name' ? 'red': ''">名字</span>
+      <span class="item" :class="searchKey == 'date' ? 'red': ''">日期</span>
+      <span class="item" :class="searchKey == 'address' ? 'red': ''">地址</span>
     </el-option>
-    <el-option
-      v-for="item in options"
-      :key="item.recordId"
-      :label="item[searchKey]"
-      :value="item.recordId"
-    >
-      <span class="item" :class="searchKey == 'zcbh' ? 'red': ''">{{ item.zcbh }}</span>
-      <el-tooltip effect="dark" :content="item.zcmc" placement="top">
-        <span class="item" :class="searchKey == 'zcmc' ? 'red': ''">{{ item.zcmc }}</span>
-      </el-tooltip>
-      <el-tooltip effect="dark" :content="item.xh" placement="top">
-        <span class="item" :class="searchKey == 'xh' ? 'red': ''">{{ item.xh }}</span>
-      </el-tooltip>
-      <span class="item" :class="searchKey == 'je' ? 'red': ''">￥{{ item.je }}</span>
-      <span
-        class="item"
-        style="width: 80px"
-        :class="searchKey == 'sfjk' ? 'red': ''"
-      >{{ item.sfjk }}</span>
+    <el-option v-for="item in options" :key="item.id" :label="item[searchKey]" :value="item.id">
+      <span class="item" style="width: 50px" :class="searchKey == 'id' ? 'red': ''">￥{{ item.id }}</span>
       <span
         class="item"
         style="width: 100px"
-        :class="searchKey == 'syrmc' ? 'red': ''"
-      >{{ item.syrmc }}</span>
-      <el-tooltip effect="dark" :content="item.sydwmc" placement="top">
-        <span class="item" :class="searchKey == 'sydwmc' ? 'red': ''">{{ item.sydwmc }}</span>
-      </el-tooltip>
-      <span class="item" style="width: 100px" :class="searchKey == 'glr' ? 'red': ''">{{ item.glr }}</span>
-      <span class="item" :class="searchKey == 'gzrq' ? 'red': ''">{{ item.gzrq }}</span>
-      <el-tooltip effect="dark" :content="item.cfdmc" placement="top">
-        <span class="item" :class="searchKey == 'cfdmc' ? 'red': ''">{{ item.cfdmc }}</span>
+        :class="searchKey == 'name' ? 'red': ''"
+      >{{ item.name }}</span>
+      <span class="item" :class="searchKey == 'date' ? 'red': ''">{{ item.date }}</span>
+      <el-tooltip effect="dark" :content="item.address" placement="top">
+        <span class="item" :class="searchKey == 'address' ? 'red': ''">{{ item.address }}</span>
       </el-tooltip>
     </el-option>
     <div slot="empty" class="empty">
@@ -66,8 +38,8 @@
           <div>查询结果不存在！</div>
         </div>
         <div class="empty_desc">
-          <div>请重新输入资产编号或仪器名称、品牌/型号等信息查找。</div>
-          <div>如果还查询不到您要报修的仪器，请咨询设备处处理。</div>
+          <div>请重新输入名字、地址等信息查找。</div>
+          <div>如果还查询不到您要选择的数据，请在数据库中添加。</div>
         </div>
       </template>
       <div v-else-if="loading" class="loading">
@@ -88,7 +60,7 @@ export default {
     }
   },
   props: {
-    recordId: {
+    id: {
       type: String,
       default: ''
     },
@@ -119,35 +91,17 @@ export default {
     getPlaceholder() {
       let placeholder = ''
       switch (this.searchKey) {
-        case 'zcbh':
-          placeholder = '资产编号'
+        case 'id':
+          placeholder = '序号'
           break
-        case 'zcmc':
-          placeholder = '仪器名称'
+        case 'name':
+          placeholder = '名字'
           break
-        case 'xh':
-          placeholder = '品牌/型号'
+        case 'date':
+          placeholder = '日期'
           break
-        case 'je':
-          placeholder = '仪器原值'
-          break
-        case 'sfjk':
-          placeholder = '是否进口'
-          break
-        case 'syrmc':
-          placeholder = '使用人'
-          break
-        case 'sydwmc':
-          placeholder = '使用部门'
-          break
-        case 'glr':
-          placeholder = '资产管理员'
-          break
-        case 'gzrq':
-          placeholder = '购置日期'
-          break
-        case 'cfdmc':
-          placeholder = '放置地址'
+        case 'address':
+          placeholder = '地址'
           break
         default:
           placeholder = ''
@@ -157,15 +111,15 @@ export default {
     }
   },
   watch: {
-    recordId(newV) {
-      const row = this.options.find((item) => item.recordId == newV)
+    id(newV) {
+      const row = this.options.find((item) => item.id == newV)
       this.selectValue = row && row[this.searchKey] ? newV : ''
     }
   },
   methods: {
     // 选择数据
-    change(recordId) {
-      this.$emit('change', recordId, this.searchKey)
+    change(id) {
+      this.$emit('change', id, this.searchKey)
     },
     // 请求数据
     remoteMethod(value, isConcatList = false) {
@@ -176,7 +130,7 @@ export default {
 
       const params = {
         page: this.page,
-        pageSize: 10,
+        limit: 10,
         parameter: {
           [`${this.searchKey}`]: searchValue
         }

@@ -59,7 +59,6 @@
 
 <script>
 import { getSelectTableList } from '@/api/table'
-
 import TableLayout from '@/components/TableLayout'
 
 export default {
