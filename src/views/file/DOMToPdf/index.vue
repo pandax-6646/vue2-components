@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import PdfLoader from '@/utils/exportPdf'
+import {getPdfPage} from '@/utils/htmlToPDF'
 export default {
   name: 'DOMToPdf',
   data() {
@@ -50,16 +50,9 @@ export default {
     // jianshu.com/p/257513ab0717
     dowloadHandle() {
       this.fullscreenLoading = true
-      setTimeout(() => {
-        const pdfDom = document.getElementById('pdfDom')
-        const pdfLoader = new PdfLoader(pdfDom, this.article.title, 'itemClass')
-        pdfLoader.outPutPdfFn().then(res => {
-          console.log('导出成功')
-        })
-        // getPdf(pdfDom, this.article.title).then(() => {
-        //   this.fullscreenLoading = false
-        // })
-      }, 300)
+      getPdfPage('pdfDom', this.article.title).then(() => {
+        this.fullscreenLoading = false
+      })
     }
   }
 }
