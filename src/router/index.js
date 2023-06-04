@@ -135,6 +135,12 @@ export const constantRoutes = [
         meta: { title: '合并 table' }
       },
       {
+        path: 'customTableHand',
+        name: 'CustomTableHand',
+        component: () => import('@/views/table/customTableHand/index'),
+        meta: { title: '自定义 table 表头' }
+      },
+      {
         path: 'treeTable',
         name: 'sreeTable',
         component: () => import('@/views/table/treeTable/index'),

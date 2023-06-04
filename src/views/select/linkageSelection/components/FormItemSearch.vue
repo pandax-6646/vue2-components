@@ -65,10 +65,11 @@ export default {
       default: ''
     },
     searchKey: {
-      require: true,
+      required: true,
       type: String
     },
     options: {
+      required: true,
       type: Array
     },
     total: {
