@@ -38,7 +38,7 @@
           <div>查询结果不存在！</div>
         </div>
         <div class="empty_desc">
-          <div>请重新输入名字、地址等信息查找。</div>
+          <div>请重新输入{{ getPlaceholder.replace('请输入', '') }}。</div>
           <div>如果还查询不到您要选择的数据，请在数据库中添加。</div>
         </div>
       </template>
@@ -108,7 +108,7 @@ export default {
           placeholder = ''
           break
       }
-      return `请输入${placeholder}`
+      return `请输入${placeholder}查询`
     }
   },
   watch: {
