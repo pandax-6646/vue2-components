@@ -32,7 +32,7 @@ export default {
     },
     isShowHeader: {
       type: Boolean,
-      deafult: false
+      default: false
     }
   },
   data() {
