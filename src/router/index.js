@@ -70,12 +70,6 @@ export const constantRoutes = [
         meta: { title: '联动选择' }
       },
       {
-        path: 'dayTimesSelection',
-        name: 'DayTimesSelection',
-        component: () => import('@/views/select/dayTimesSelection'),
-        meta: { title: '日期时间短段选择' }
-      },
-      {
         path: 'uniconditionalQuery',
         name: 'UniconditionalQuery',
         component: () => import('@/views/select/uniconditionalQuery'),
@@ -268,6 +262,12 @@ export const constantRoutes = [
         component: () => import('@/views/componentsDemo/clipboard'),
         name: 'ClipboardDemo',
         meta: { title: '复制文本' }
+      },
+      {
+        path: 'processNode',
+        name: 'ProcessNode',
+        component: () => import('@/views/componentsDemo/processNode'),
+        meta: { title: '流程节点' }
       },
       {
         path: 'count-to',
