@@ -26,7 +26,7 @@
         </ul>
       </div>
     </el-popover>
-    <!-- <node-detail ref="nodeDetail" :currentStep="currentStep" :process-sign="processSign" @dialogConfirm="dialogConfirm" /> -->
+    <node-detail ref="nodeDetail" @dialogConfirm="dialogConfirm" />
   </div>
 </template>
 
@@ -57,26 +57,20 @@ export default {
     processNodeList: { // 节点列表
       type: Array,
       default: () => ([{
-        nodeName: '',
-        type: '',
-        typeContentArr: [],
-        approvalMethod: '2',
-        processType: '',
-        costSmall: '',
-        costBig: ''
+        nodeName: ''
       }])
     }
   },
   data() {
     return {
-      // ............................................................................. 右键菜单栏状态
+      // 右键菜单栏状态
       popoverVisible: false,
-      // ............................................................................. 右键菜单栏位置
+      // 右键菜单栏位置
       location: {
         top: 0,
         left: 0
       },
-      // ............................................................................. 点击的节点下标
+      // 点击的节点下标
       selectIndex: null
     }
   },
@@ -87,23 +81,27 @@ export default {
     document.removeEventListener('click', this.closeMenu, false)
   },
   methods: {
+    // 点击编辑节点
     seeNode(index) {
       this.selectIndex = index
       const row = this.processNodeList[index]
-      this.$refs.approvalDialog.editApproval(row)
+      this.$refs.nodeDetail.editApproval(row)
     },
-    // ............................................................................. 右键打开菜单
+
+    // 右键打开菜单
     openMenu(e, index) {
       this.selectIndex = index
       this.location.top = e.layerY
       this.location.left = e.layerX
       this.popoverVisible = true
     },
-    // ............................................................................. 关闭菜单
+
+    // 关闭菜单
     closeMenu() {
       this.popoverVisible = false
     },
-    // ............................................................................. 增加节点、删除节点
+  
+    // 增加节点、删除节点
     addNode() {
       this.popoverVisible = false
       if (this.processNodeList.length >= 10) {
@@ -115,16 +113,12 @@ export default {
         return
       }
       const node = {
-        nodeName: '',
-        type: '',
-        typeContentArr: [],
-        approvalMethod: '2',
-        processType: '',
-        costSmall: '',
-        costBig: ''
+        nodeName: ''
       }
       this.processNodeList.splice(this.selectIndex + 1, 0, node)
     },
+
+    // 删除节点
     deleteNode() {
       this.popoverVisible = false
       if (this.processNodeList.length <= 1) {
@@ -140,7 +134,8 @@ export default {
         this.$message({ message: '删除成功', type: 'success' })
       }).catch(() => { })
     },
-    // ..............................................................................暴露节点数据
+
+    // 暴露节点数据
     exposeData() {
       if (this.verifyNode(this.processNodeList)) {
         this.$message.closeAll()
@@ -153,12 +148,14 @@ export default {
         return JSON.parse(JSON.stringify(this.processNodeList))
       }
     },
-    // ..............................................................................节点验证
+
+    // 节点验证
     verifyNode(data) {
       if (data.length <= 0) return false
       return data.some((item) => item.nodeName === '')
     },
-    // ............................................................................. 节点弹窗回调
+
+    // 节点弹窗回调
     dialogConfirm(val) {
       this.processNodeList.splice(this.selectIndex, 1, val)
     }
