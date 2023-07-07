@@ -26,7 +26,7 @@ export default {
     return {
       // 预览pdf
       innerVisible: false,
-      previewUrl: 'https://ysa.file65.upload.ilabeco.com/group1/M00/02/4C/wKgEQWQ86kiASvUvAAV6wXVYpcE767.pdf',
+      previewUrl: '',
       numPages: '',
       fileLoading: false
     }
