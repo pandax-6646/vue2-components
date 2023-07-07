@@ -1,0 +1,66 @@
+{
+  "workbench.editorAssociations": {
+    "*.ttf": "default"
+  },
+  "workbench.editor.enablePreview": false,
+  // 显示 markdown 中英文切换时产生的特殊字符
+  "editor.renderControlCharacters": true,
+  // tab 大小为2个空格
+  "editor.tabSize": 2,
+  // 100 列后换行
+  "editor.wordWrapColumn": 100,
+  "editor.formatOnType": true,
+  "editor.guides.bracketPairs": "active",
+  // 保存时格式化
+  "editor.formatOnSave": false,
+  // 开启 vscode 文件路径导航
+  "breadcrumbs.enabled": true,
+  // 选择 vue 文件中 template 的格式化工具
+  "vetur.format.defaultFormatter.html": "prettyhtml",
+  // 设置 eslint 保存时自动修复
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": false,
+    "source.fixAll.eslint": true
+  },
+  // 启用 eslint 校验的语言
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "html",
+    "vue",
+  ],
+  // vetur 的自定义设置
+  "vetur.format.defaultFormatterOptions": {
+    "prettier": {
+      "singleQuote": true,
+      "semi": false,
+      //禁止随时添加逗号,这个很重要。找了好久
+      "trailingComma": "none"
+    }
+  },
+  // 修改500ms后自动保存
+  // "files.autoSave": "afterDelay",
+  // "files.autoSaveDelay": 500,
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.renderWhitespace": "boundary",
+  "editor.detectIndentation": false,
+  "workbench.startupEditor": "none",
+  "git.enableSmartCommit": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "git.path": "/usr/bin/git",
+  "window.zoomLevel": -1,
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
+  },
+  // 设置右边缩略图宽度
+  "editor.minimap.maxColumn": 50,
+  "settingsSync.ignoredExtensions": [
+
+
+  ],
+  "editor.accessibilitySupport": "off",
+  "settingsSync.ignoredSettings": []
+}
