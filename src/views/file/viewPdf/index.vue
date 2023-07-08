@@ -14,16 +14,17 @@ export default {
   },
   data() {
     return {
-      urls: 'https://ysa.file65.upload.ilabeco.com/group1/M00/02/57/wKgEQWSnqVaAD2fnACqbsEYiysU705.pdf'
+      urls: ''
     }
   },
   methods: {
     showFile() {
-      this.$refs.viewPdfDialog.toView(this.urls)
+      if (!this.urls) {
+        this.$message.warning('无效的文件地址')
+        return
+      }
+      this.$refs.viewPdfDialog.toView()
     }
   }
 }
 </script>
-
-<style scoped lang="scss">
-</style>
