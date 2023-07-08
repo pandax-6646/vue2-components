@@ -45,5 +45,11 @@ npm run lint
 npm run lint -- --fix
 ```
 
+## node版本
+
+- mac 系统建议使用 10.24.1 版本
+- window 系统建议使用 14.15.0 版本
+
 ## 上传附件
+
 - 需要自行在本地运行一个文件服务器，然后配置上传地址，也可[参考](https://github.com/wangeditor-team/server)
