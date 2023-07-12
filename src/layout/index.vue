@@ -8,13 +8,17 @@
         <tags-view v-if="needTagsView" />
       </div>
       <app-main />
+      <right-panel>
+        <settings />
+      </right-panel>
     </div>
   </div>
 </template>
 
 <script>
-import { Navbar, Sidebar, AppMain, TagsView } from './components'
+import { Navbar, Sidebar, AppMain, TagsView, Settings } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
+import RightPanel from '@/components/RightPanel'
 
 export default {
   name: 'Layout',
@@ -22,7 +26,9 @@ export default {
     Navbar,
     Sidebar,
     AppMain,
-    TagsView
+    TagsView,
+    Settings,
+    RightPanel
   },
   mixins: [ResizeMixin],
   computed: {
