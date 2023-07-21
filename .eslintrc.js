@@ -47,7 +47,8 @@ module.exports = {
     'curly': [2, 'multi-line'],
     'dot-location': [2, 'property'],
     'eol-last': 2,
-    'eqeqeq': ["error", "always", {"null": "ignore"}],
+    // 'eqeqeq': ["error", "always", {"null": "ignore"}],
+    "eqeqeq": 0, // 必须使用全等
     'generator-star-spacing': [2, {
       'before': true,
       'after': true

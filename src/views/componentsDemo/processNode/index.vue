@@ -6,12 +6,10 @@
 
 <script>
 import NodeBox from './components/NodeBox'
-import NodeDetail from './components/NodeDetail'
 export default {
   name: 'ProcessNode',
   components: {
-    NodeBox,
-    NodeDetail
+    NodeBox
   },
   data() {
     return {}

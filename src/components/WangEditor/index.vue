@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/require-default-prop -->
 <template>
   <div class="editor-container">
     <div ref="editor" class="editor-box" />
@@ -23,15 +24,18 @@ export default {
       default: 200
     },
 
+    // eslint-disable-next-line vue/require-default-prop
     height: {
       type: Number
     },
 
+    // eslint-disable-next-line vue/require-default-prop
     placeholder: {
       type: String
     },
 
     // 触发 onchange 的时间频率
+    // eslint-disable-next-line vue/require-default-prop
     onchangeTimeout: {
       type: String
     },
@@ -43,6 +47,7 @@ export default {
     },
 
     // 上传图片大小限制
+    // eslint-disable-next-line vue/require-default-prop
     maxSize: {
       type: Number
     },
@@ -53,11 +58,13 @@ export default {
     },
 
     // 单次最多上传图片数量
+    // eslint-disable-next-line vue/require-default-prop
     imgMaxLength: {
       type: Number
     },
 
     // 图片上传超时时间（毫秒）
+    // eslint-disable-next-line vue/require-default-prop
     imgTimeout: {
       type: Number
     }

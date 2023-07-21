@@ -100,7 +100,7 @@ export default {
     closeMenu() {
       this.popoverVisible = false
     },
-  
+
     // 增加节点、删除节点
     addNode() {
       this.popoverVisible = false
