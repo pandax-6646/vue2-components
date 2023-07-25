@@ -51,11 +51,11 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  .shadow {
-    height: 500px;
-    text-align: center;
-    line-height: 500px;
-    color: #409eff;
-    font-size: 40px;
-  }
+.shadow {
+  height: 500px;
+  text-align: center;
+  line-height: 500px;
+  color: #409eff;
+  font-size: 40px;
+}
 </style>

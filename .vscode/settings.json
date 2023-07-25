@@ -27,7 +27,7 @@
     "javascript",
     "javascriptreact",
     "html",
-    "vue",
+    "vue"
   ],
   // vetur 的自定义设置
   "vetur.format.defaultFormatterOptions": {
