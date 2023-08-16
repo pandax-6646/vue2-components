@@ -7,8 +7,8 @@
     "esbenp.prettier-vscode",
     "donjayamanne.githistory",
     "formulahendry.auto-close-tag",
-    "akamud.vscode-theme-onedark",
     "christian-kohler.path-intellisense",
     "ms-ceintl.vscode-language-pack-zh-hans",
+    "zhuangtongfa.material-theme"
   ]
 }
