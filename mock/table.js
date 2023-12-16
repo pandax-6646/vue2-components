@@ -1,7 +1,6 @@
 const Mock = require('mockjs')
 const { pagingHandel } = require('./utils')
 
-
 const data = Mock.mock({
   'items|10': [{
     id: '@id',
@@ -12,7 +11,6 @@ const data = Mock.mock({
     pageviews: '@integer(300, 5000)'
   }]
 })
-
 
 const selectTableData = [
   {
@@ -138,7 +136,7 @@ const selectTableData = [
 ]
 
 function searchSelectTable(pageParams, list) {
-  const {name, address} = JSON.parse(pageParams.parameter)
+  const { name, address } = JSON.parse(pageParams.parameter)
   if (name) {
     list = list.filter(item => item.name.includes(name))
   }
@@ -151,9 +149,6 @@ function searchSelectTable(pageParams, list) {
     limit: list.length
   }
 }
-
-
-
 
 module.exports = [
   {

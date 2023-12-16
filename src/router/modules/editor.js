@@ -8,7 +8,7 @@ const editorRouter = {
   meta: {
     title: '编辑器',
     icon: 'edit-file',
-    roles: ['admin', 'editor'] // you can set roles in root nav
+    roles: ['admin'] // you can set roles in root nav
   },
   redirect: '/editor/richTextEditor',
   children: [
@@ -17,35 +17,34 @@ const editorRouter = {
       name: 'RichTextEditor',
       component: () => import('@/views/editor/richTextEditor'),
       meta: {
-        title: '富文本编辑器',
-        roles: ['admin'] // or you can only set roles in sub nav
+        title: '富文本编辑器'
       },
       redirect: '/editor/richTextEditor/wangeEditor',
       children: [
         {
           path: 'wangeEditor',
           name: 'WangeEditor',
-          component: () => import('@/views/editor/richTextEditor/wangeEditor/index'),
+          component: () => import('@/views/editor/richTextEditor/wangeEditor'),
           meta: { title: 'wangeEditor' }
         },
         {
           path: 'tinymce',
           name: 'Tinymce',
-          component: () => import('@/views/editor/richTextEditor/tinymce/index'),
+          component: () => import('@/views/editor/richTextEditor/tinymce'),
           meta: { title: 'tinymce' }
         }
       ]
     },
     {
       path: 'jsonEditor',
-      name: 'jsonEditor',
-      component: () => import('@/views/editor/jsonEditor/index'),
+      name: 'JsonEditor',
+      component: () => import('@/views/editor/jsonEditor'),
       meta: { title: 'json 编辑器' }
     },
     {
       path: 'markdownEditor',
       name: 'MarkdownEditor',
-      component: () => import('@/views/editor/markdownEditor/index'),
+      component: () => import('@/views/editor/markdownEditor'),
       meta: { title: 'markdown 编辑器' }
     }
   ]

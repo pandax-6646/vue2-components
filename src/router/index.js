@@ -15,6 +15,8 @@ import editorRouter from './modules/editor'
 import fileRouter from './modules/file'
 /* 小功能组件 */
 import componentsDemoRouter from './modules/componentsDemo'
+/* 权限管理 */
+import authorityManagement from './modules/authorityManagement'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -85,10 +87,7 @@ export const constantRoutes = [
     hidden: true
   },
 
-  componentsDemoRouter,
-
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  componentsDemoRouter
 ]
 
 /**
@@ -96,7 +95,12 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
-  editorRouter
+  authorityManagement,
+
+  editorRouter,
+
+  // 404 page must be placed at the end !!!
+  { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({
