@@ -19,8 +19,8 @@
   "vetur.format.defaultFormatter.html": "prettyhtml",
   // 设置 eslint 保存时自动修复
   "editor.codeActionsOnSave": {
-    "source.organizeImports": false,
-    "source.fixAll.eslint": true
+    "source.organizeImports": "explicit",
+    "source.fixAll.eslint": "explicit"
   },
   // 启用 eslint 校验的语言
   "eslint.validate": [

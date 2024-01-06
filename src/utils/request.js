@@ -1,7 +1,7 @@
-import axios from 'axios'
-import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
+import axios from 'axios'
+import { Message, MessageBox } from 'element-ui'
 
 // create an axios instance
 const service = axios.create({
@@ -9,6 +9,24 @@ const service = axios.create({
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
+
+let pendingRequest = []
+
+/**
+ * 取消正在进行中的请求
+ * @param {*} config
+ */
+const cancelRequest = function(config) {
+  const key = `${config.method}:${config.url}`
+  pendingRequest = pendingRequest.filter(item => {
+    if (item.key === key) {
+      item.fn && item.fn('上次的重复请求被中止')
+      return true
+    } else {
+      return false
+    }
+  })
+}
 
 // request interceptor
 service.interceptors.request.use(
@@ -21,6 +39,12 @@ service.interceptors.request.use(
       // please modify it according to the actual situation
       config.headers['X-Token'] = getToken()
     }
+
+    cancelRequest(config)
+    config.cancelToken = new axios.CancelToken(cancelFn => {
+      pendingRequest.push({ key: `${config.method}:${config.url}`, fn: cancelFn })
+    })
+
     return config
   },
   error => {
@@ -43,6 +67,7 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
+    cancelRequest(response.config)
     const res = response.data
 
     // if the custom code is not 20000, it is judged as an error.
