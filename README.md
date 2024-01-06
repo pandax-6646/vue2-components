@@ -1,13 +1,17 @@
-# vue-components-template
+# vue2-components
+
+## 介绍
+
+基于 [vue-admin-template](https://github.com/PanJiaChen/vue-admin-template)  进行二次开发，主要是为了收集工作中和网上的实用的组件轮子。
 
 ## 拉取项目
 
 ```bash
 # 克隆项目
-git clone https://github.com/PanJiaChen/vue-admin-template.git
+git clone https://github.com/pandax-6646/vue2-components
 
 # 进入项目目录
-cd vue-components-template
+cd vue2-components
 
 # 安装依赖
 npm install
@@ -49,6 +53,7 @@ npm run lint -- --fix
 
 - mac 系统建议使用 10.24.1 版本
 - window 系统建议使用 14.15.0 版本
+- 需要多个 ***node*** 环境[参考](https://www.yuque.com/pandax/front_end/zlm8wq#VQ0bK)
 
 ## 上传附件
 
