@@ -15,6 +15,10 @@
   },
   "dependencies": {
     "@toast-ui/editor": "^3.2.2",
+    "@vue-office/docx": "^1.6.0",
+    "@vue-office/excel": "^1.6.0",
+    "@vue-office/pdf": "^1.6.1",
+    "@vue/composition-api": "^1.7.2",
     "axios": "0.18.1",
     "clipboard": "^2.0.11",
     "codemirror": "5.45.0",
@@ -35,6 +39,7 @@
     "sortablejs": "^1.15.0",
     "vue": "2.6.10",
     "vue-count-to": "^1.0.13",
+    "vue-demi": "^0.14.6",
     "vue-pdf": "^4.3.0",
     "vue-router": "3.0.6",
     "vuedraggable": "^2.24.3",

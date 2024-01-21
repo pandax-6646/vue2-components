@@ -33,10 +33,10 @@ const fileRouter = {
       meta: { title: '上传头像' }
     },
     {
-      path: 'viewPdf',
-      name: 'ViewPdf',
-      component: () => import('@/views/file/viewPdf/index'),
-      meta: { title: '预览Pdf' }
+      path: 'viewFile',
+      name: 'ViewFile',
+      component: () => import('@/views/file/viewFile/index'),
+      meta: { title: '预览文件' }
     }
   ]
 }
