@@ -1,14 +1,8 @@
 {
   "recommendations": [
     "octref.vetur",
-    "eamodio.gitlens",
-    "russell.any-rule",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "donjayamanne.githistory",
-    "formulahendry.auto-close-tag",
-    "christian-kohler.path-intellisense",
-    "ms-ceintl.vscode-language-pack-zh-hans",
-    "zhuangtongfa.material-theme"
+    "christian-kohler.path-intellisense"
   ]
 }
